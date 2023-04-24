@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -17,9 +19,17 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $nf = Collection::make(['Spe', 'Qualif', 'T', 'TS']);
+        $filieres = Collection::make(['DD', 'TDI', 'TGE', 'TDI']);
+        $groups = Collection::make(['101', '102', '201', '202']);
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'fname' => fake()->firstName(),
+            'lname' => fake()->lastName(),
+            'tel' => fake()->phoneNumber(),
+            'nf' => $nf->random(),
+            'filiere' => $filieres->random(),
+            'group' => $filieres->random() . $groups->random(),
+            'email' => fake()->unique()->userName() . '@ofppt-edu.ma',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),

@@ -17,7 +17,7 @@ export default function Card({ title, content, path }) {
         <div
             // onMouseEnter={() => setIsHovering(true)}
             // onMouseLeave={() => setIsHovering(false)}
-            className="block h-40 w-full md:h-60 md:w-60 overflow-hidden mx-2 m-5 p-6 pt-12  text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="block h-auto overflow-hidden mx-2 m-5 p-6 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
             <svg
                 className="w-10 h-10 mb-2 mx-auto text-gray-500 dark:text-gray-400"

@@ -1,63 +1,63 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
-use App\Models\Admin;
-use Inertia\Response;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AdminUpdateRequest;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Auth\Events\Registered;
-use App\Providers\RouteServiceProvider;
-use App\Http\Requests\AdminLoginRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class AdminController extends Controller
 {
     /**
-     * Display the registration view.
+     * Display the admin's profile form.
      */
-    public function index(): Response
+    public function edit(Request $request): Response
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Edit', [
+            'mustVerifyEmail' => $request->user('admin') instanceof MustVerifyEmail,
+            'status' => session('status'),
+        ]);
     }
 
     /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Update the admin's profile information.
      */
-    public function store(Request $request): RedirectResponse
+    public function update(AdminUpdateRequest $request): RedirectResponse
     {
-        $request->validate([
-            'fname' => 'required|string|max:255',
-            'lname' => 'required|string|max:255',
-            'password' => 'required|min:6',
-        ]);
 
-        // dd($request->password);
-        $admin = Admin::create([
-            'fname' => $request->fname,
-            'lname' => $request->lname,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        event(new Registered($admin));
+        $request->user('admin')->fill($request->validated());
+        // if ($request->user('admin')->isDirty('email')) {
+        //     $request->user('admin')->email_verified_at = null;
+        // }
 
-        Auth::login($admin);
-        return redirect()->route('admin.dashboard');
+        $request->user('admin')->save();
+
+        return Redirect::route('admin.edit');
     }
 
-
-    public function login(AdminLoginRequest $request): RedirectResponse
+    /**
+     * Delete the admin's account.
+     */
+    public function destroy(Request $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->validate([
+            'password' => ['required', 'current-password'],
+        ]);
 
-        $request->session()->regenerate();
+        $user = $request->user('admin');
 
-        return redirect('/');
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
     }
 }

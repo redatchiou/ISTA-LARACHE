@@ -14,11 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+
+        \App\Models\Filiere::factory(10)->create();
+
+        for ($i = 1; $i < 11; $i++) {
+            \App\Models\Module::factory(7)->create(['filiere_id' => $i]);
+        }
+
+        \App\Models\Admin::factory(3)->create();
+
+        \App\Models\User::factory(100)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        \App\Models\Activite::factory(20)->create();
+        \App\Models\Faq::factory(20)->create();
     }
 }

@@ -9,6 +9,7 @@ export default forwardRef(function TextInput(
         required,
         isFocused,
         handleChange,
+        defaultValue,
         children,
     },
     ref
@@ -24,6 +25,7 @@ export default forwardRef(function TextInput(
     return (
         <div className="flex flex-col items-start">
             <select
+                defaultValue={defaultValue}
                 name={name}
                 id={id}
                 className={

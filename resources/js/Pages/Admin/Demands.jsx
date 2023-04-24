@@ -1,54 +1,62 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 
-export default function Demands() {
+export default function Demands(props) {
+    const {demande}=props
+    console.log(demande)
     return (
         <AdminLayout>
-            <div class="m-7 overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <div className="m-7 overflow-x-auto shadow-md sm:rounded-lg">
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" className="px-6 py-3">
                                 Sujet
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" className="px-6 py-3">
                                 Stagiaire
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                Date de demande
-                            </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" className="px-6 py-3">
                                 Groupe
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" className="px-6 py-3">
+                                Date de demande
+                            </th>
+                            <th scope="col" className="px-6 py-3">
                                 Reponse
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" className="px-6 py-3">
                                 Annuler
                             </th>
                         </tr>
                     </thead>
+
+
                     <tbody>
-                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        {demande.map((item)=>(
+                            <tr  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                             <th
                                 scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
-                                Attestation de Stagiaire
+                                {item.message}
+
+
+
                             </th>
-                            <td class="px-6 py-4">Ali Idrissi</td>
-                            <td class="px-6 py-4"> 19/02/2023 12:03</td>
-                            <td class="px-6 py-4">DD101</td>
-                            <td class="px-6 py-4">
+                            <td className="px-6 py-4">{item.name} </td>
+                            <td className="px-6 py-4">{item.groupe}</td>
+                            <td className="px-6 py-4">{item.created_at}</td>
+                            <td className="px-6 py-4">
                                 <a
                                     href="mailto:ali@mail.com"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
                                         height="16"
                                         fill="currentColor"
-                                        class="mx-auto"
+                                        className="mx-auto"
                                         viewBox="0 0 16 16"
                                     >
                                         <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z" />
@@ -62,34 +70,39 @@ export default function Demands() {
                                     width="16"
                                     height="16"
                                     fill="currentColor"
-                                    class="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
+                                    className="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
                                     viewBox="0 0 16 16"
                                 >
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
                                 </svg>
                             </td>
                         </tr>
-                        <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+
+                        ))
+
+                        }
+
+                        {/* <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                             <th
                                 scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
                                 Attestation de Stagiaire
                             </th>
-                            <td class="px-6 py-4">Reda Yamani</td>
-                            <td class="px-6 py-4">19/02/2023 12:03</td>
-                            <td class="px-6 py-4">DWFS201</td>
-                            <td class="px-6 py-4">
+                            <td className="px-6 py-4">Reda Yamani</td>
+                            <td className="px-6 py-4">19/02/2023 12:03</td>
+                            <td className="px-6 py-4">DWFS201</td>
+                            <td className="px-6 py-4">
                                 <a
                                     href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
                                         height="16"
                                         fill="currentColor"
-                                        class="mx-auto"
+                                        className="mx-auto"
                                         viewBox="0 0 16 16"
                                     >
                                         <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z" />
@@ -103,34 +116,34 @@ export default function Demands() {
                                     width="16"
                                     height="16"
                                     fill="currentColor"
-                                    class="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
+                                    className="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
                                     viewBox="0 0 16 16"
                                 >
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
                                 </svg>
                             </td>
                         </tr>
-                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                             <th
                                 scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
                                 Attestation de Stagiaire
                             </th>
-                            <td class="px-6 py-4">Mohamed Haroni</td>
-                            <td class="px-6 py-4">19/02/2023 13:43</td>
-                            <td class="px-6 py-4">TDI101</td>
-                            <td class="px-6 py-4">
+                            <td className="px-6 py-4">Mohamed Haroni</td>
+                            <td className="px-6 py-4">19/02/2023 13:43</td>
+                            <td className="px-6 py-4">TDI101</td>
+                            <td className="px-6 py-4">
                                 <a
                                     href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
                                         height="16"
                                         fill="currentColor"
-                                        class="mx-auto"
+                                        className="mx-auto"
                                         viewBox="0 0 16 16"
                                     >
                                         <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z" />
@@ -144,34 +157,34 @@ export default function Demands() {
                                     width="16"
                                     height="16"
                                     fill="currentColor"
-                                    class="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
+                                    className="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
                                     viewBox="0 0 16 16"
                                 >
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
                                 </svg>
                             </td>
                         </tr>
-                        <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+                        <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
                             <th
                                 scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
                                 Attestation de Stagiaire
                             </th>
-                            <td class="px-6 py-4">Ahmed Sefrioui</td>
-                            <td class="px-6 py-4"> 19/02/2023 09:03</td>
-                            <td class="px-6 py-4">DD102</td>
-                            <td class="px-6 py-4">
+                            <td className="px-6 py-4">Ahmed Sefrioui</td>
+                            <td className="px-6 py-4"> 19/02/2023 09:03</td>
+                            <td className="px-6 py-4">DD102</td>
+                            <td className="px-6 py-4">
                                 <a
                                     href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
                                         height="16"
                                         fill="currentColor"
-                                        class="mx-auto"
+                                        className="mx-auto"
                                         viewBox="0 0 16 16"
                                     >
                                         <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z" />
@@ -185,7 +198,7 @@ export default function Demands() {
                                     width="16"
                                     height="16"
                                     fill="currentColor"
-                                    class="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
+                                    className="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
                                     viewBox="0 0 16 16"
                                 >
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
@@ -195,24 +208,24 @@ export default function Demands() {
                         <tr>
                             <th
                                 scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
                                 Attestation de Stagiaire
                             </th>
-                            <td class="px-6 py-4">kamal Ayoubi</td>
-                            <td class="px-6 py-4"> 19/02/2023 14:03</td>
-                            <td class="px-6 py-4">TIE101</td>
-                            <td class="px-6 py-4">
+                            <td className="px-6 py-4">kamal Ayoubi</td>
+                            <td className="px-6 py-4"> 19/02/2023 14:03</td>
+                            <td className="px-6 py-4">TIE101</td>
+                            <td className="px-6 py-4">
                                 <a
                                     href="#"
-                                    class="mx-auto font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                    className="mx-auto font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"
                                         height="16"
                                         fill="currentColor"
-                                        class="mx-auto"
+                                        className="mx-auto"
                                         viewBox="0 0 16 16"
                                     >
                                         <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z" />
@@ -226,13 +239,13 @@ export default function Demands() {
                                     width="16"
                                     height="16"
                                     fill="currentColor"
-                                    class="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
+                                    className="mx-auto font-medium text-red-600 dark:text-blue-500 hover:underline"
                                     viewBox="0 0 16 16"
                                 >
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
                                 </svg>
                             </td>
-                        </tr>
+                        </tr> */}
                     </tbody>
                 </table>
             </div>

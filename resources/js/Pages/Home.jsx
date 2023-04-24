@@ -1,22 +1,14 @@
 import { Head, Link } from "@inertiajs/react";
-import React, { useState ,map} from "react";
-import FooterLayout from "@/Layouts/FooterLayout";
+import { useState } from "react";
+import Footer from "@/Components/Footer";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import Card from "@/Components/Card";
-// import { usePage } from '@inertiajs/react';
-
-
-
-
-export default function Home({ auth, header, activites}) {
+export default function Home({ auth }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-    // const activites  = usePage().props;
-    console.log(activites);
-
 
     return (
         <>
@@ -34,39 +26,40 @@ export default function Home({ auth, header, activites}) {
 
                                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                     <NavLink
-                                        href={route("dashboard")}
+                                        href="/filieres"
                                         active={route().current("dashboard")}
                                     >
-                                        Documentation
+                                        Filieres
                                     </NavLink>
                                     <NavLink
-                                        href={route("dashboard")}
+                                        href="/contact"
                                         // active={route().current("dashboard")}
                                     >
                                         Contact
                                     </NavLink>
+
                                     <NavLink
-                                        href={route("dashboard")}
-                                        // active={route().current("dashboard")}
-                                    >
-                                        Institut
-                                    </NavLink>
-                                    <NavLink
-                                        href={route("dashboard")}
+                                        href="/emplois"
                                         // active={route().current("dashboard")}
                                     >
                                         Emplois
+                                    </NavLink>
+                                    <NavLink
+                                        href={route("faq")}
+                                        active={route().current("faq")}
+                                    >
+                                        Faqs
+                                    </NavLink>
+                                    <NavLink
+                                        href="/institut"
+                                        // active={route().current("dashboard")}
+                                    >
+                                        Institut
                                     </NavLink>
                                 </div>
                             </div>
 
                             <div className="hidden sm:flex sm:items-center sm:ml-6">
-                            <NavLink
-                                        href={route("dashboard")}
-                                        active={route().current("dashboard")}
-                                    >
-                                        Espace Formateur
-                                    </NavLink>
                                 <div className="ml-3 relative">
                                     {auth.user ? (
                                         <Link
@@ -115,7 +108,6 @@ export default function Home({ auth, header, activites}) {
                                         </Dropdown>
                                     )}
                                 </div>
-
                             </div>
 
                             <div className="-mr-2 flex items-center sm:hidden">
@@ -198,14 +190,6 @@ export default function Home({ auth, header, activites}) {
                     </div>
                 </nav>
 
-                {header && (
-                    <header className="bg-white shadow">
-                        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                            {header}
-                        </div>
-                    </header>
-                )}
-
                 <main className="mt-5">
                     <div className="relative">
                         <div className="absolute left-40 max-[700px]:left-16 max-[700px]:right-40 bottom-20 p-5 rounded-lg border border-gray-400 border-dashed_ border-solid backdrop-blur-[2px] text-4xl font-semibold text-gray-300 bg-slate-50_ z-20">
@@ -217,29 +201,27 @@ export default function Home({ auth, header, activites}) {
                             className="w-4/5 rounded-md h-96 filter blur-[1px]_ mx-auto"
                         />
                     </div>
-                    <div className="flex justify-center max-[700px]:flex-col ">
+                    <div className="flex justify-center max-[700px]:flex-col">
                         <Link href={route("faq")}>
                             <Card
                                 title="FAQs"
-                                content=" "
+                                content="Accédez à ce processus de directives "
                                 path={
                                     <path d="M5.933.87a2.89 2.89 0 0 1 4.134 0l.622.638.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636zM7.002 11a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm1.602-2.027c.04-.534.198-.815.846-1.26.674-.475 1.05-1.09 1.05-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745.336 0 .504-.24.554-.627z" />
                                 }
                             />
                         </Link>
-                        <Link href={route('niveau')}>
                         <Card
-                            title={"Niveaux de Formation "}
-                            content=""
+                            title={"Filières"}
+                            content="Accédez à ce processus de "
                             path={
                                 <path d="M7.293.707A1 1 0 0 0 7 1.414V2H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h5v1H2.5a1 1 0 0 0-.8.4L.725 8.7a.5.5 0 0 0 0 .6l.975 1.3a1 1 0 0 0 .8.4H7v5h2v-5h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H9V6h4.5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.3 2.4a1 1 0 0 0-.8-.4H9v-.586A1 1 0 0 0 7.293.707z" />
                             }
                         />
-                        </Link>
-                        <Link href={route("activite")}>
+                        <Link href={route("activites")}>
                             <Card
                                 title={"Activités"}
-                                content=" "
+                                content="Accédez à ce processus de directives "
                                 path={
                                     <path
                                         fillRule="evenodd"
@@ -248,10 +230,10 @@ export default function Home({ auth, header, activites}) {
                                 }
                             />
                         </Link>
-                        <Link href={route("activite")}>
+                        <Link href={route("emplois")}>
                             <Card
                                 title={"Emploi de temps"}
-                                content=""
+                                content="Accédez à ce processus de :"
                                 path={
                                     <path
                                         fillRule="evenodd"
@@ -263,16 +245,14 @@ export default function Home({ auth, header, activites}) {
                     </div>
                     {/* -------------- */}
                     <p className="m-5">Les activitées currentes</p>
-                    <div class="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
-                    {activites.map(item=>(
-                    <div className="m-5 bg-inherit " key={activites.id}>
-                        <ol class="items-center sm:flex">
-                            <li class="relative mb-6 sm:mb-0">
-                                <div class="flex items-center">
-                                    <div class="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                    <div className="m-5 bg-inherit">
+                        <ol className="items-center sm:flex">
+                            <li className="relative mb-6 sm:mb-0">
+                                <div className="flex items-center">
+                                    <div className="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
                                         <svg
                                             aria-hidden="true"
-                                            class="w-3 h-3 text-blue-800 dark:text-blue-300"
+                                            className="w-3 h-3 text-blue-800 dark:text-blue-300"
                                             fill="currentColor"
                                             viewBox="0 0 20 20"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -284,41 +264,29 @@ export default function Home({ auth, header, activites}) {
                                             ></path>
                                         </svg>
                                     </div>
-                                    <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+                                    <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                                 </div>
-
-                                <div class="mt-3 sm:pr-8">
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                        {item.Titre}
+                                <div className="mt-3 sm:pr-8">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Activite
                                     </h3>
-                                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-                                        Date d'evenement {item.Datee}
+                                    <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                                        publié le 5 janvier 2022
                                     </time>
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                        {item.created_at}
-                                    </h3>
-                                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-                                        {item.message}
+                                    <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                                        Lorem ipsum dolor sit amet consectetur,
+                                        adipisicing elit. Maiores, nemo
+                                        consequuntur saepe beatae iure unde
+                                        suscipit nihil.
                                     </p>
                                 </div>
                             </li>
-
-                        </ol>
-                    </div>
-                    ))}
-                    </div>
-                </main>
-            </div>
-            <FooterLayout />
-        </>
-    );
-}
-{/* <li class="relative mb-6 sm:mb-0">
-                                <div class="flex items-center">
-                                    <div class="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                            <li className="relative mb-6 sm:mb-0">
+                                <div className="flex items-center">
+                                    <div className="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
                                         <svg
                                             aria-hidden="true"
-                                            class="w-3 h-3 text-blue-800 dark:text-blue-300"
+                                            className="w-3 h-3 text-blue-800 dark:text-blue-300"
                                             fill="currentColor"
                                             viewBox="0 0 20 20"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -330,16 +298,16 @@ export default function Home({ auth, header, activites}) {
                                             ></path>
                                         </svg>
                                     </div>
-                                    <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+                                    <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                                 </div>
-                                <div class="mt-3 sm:pr-8">
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                <div className="mt-3 sm:pr-8">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                                         Activite
                                     </h3>
-                                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                                    <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                                         publié le 5 janvier 2022
                                     </time>
-                                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+                                    <p className="text-base font-normal text-gray-500 dark:text-gray-400">
                                         Lorem ipsum, dolor sit amet consectetur
                                         adipisicing elit. Sunt, suscipit.
                                         Similique facilis sint iste ratione
@@ -347,12 +315,12 @@ export default function Home({ auth, header, activites}) {
                                     </p>
                                 </div>
                             </li>
-                            <li class="relative mb-6 sm:mb-0">
-                                <div class="flex items-center">
-                                    <div class="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                            <li className="relative mb-6 sm:mb-0">
+                                <div className="flex items-center">
+                                    <div className="z-10 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
                                         <svg
                                             aria-hidden="true"
-                                            class="w-3 h-3 text-blue-800 dark:text-blue-300"
+                                            className="w-3 h-3 text-blue-800 dark:text-blue-300"
                                             fill="currentColor"
                                             viewBox="0 0 20 20"
                                             xmlns="http://www.w3.org/2000/svg"
@@ -364,19 +332,27 @@ export default function Home({ auth, header, activites}) {
                                             ></path>
                                         </svg>
                                     </div>
-                                    <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+                                    <div className="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
                                 </div>
-                                <div class="mt-3 sm:pr-8">
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                <div className="mt-3 sm:pr-8">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                                         Activite
                                     </h3>
-                                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                                    <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                                         publié le 5 janvier 2022
                                     </time>
-                                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+                                    <p className="text-base font-normal text-gray-500 dark:text-gray-400">
                                         Lorem ipsum dolor sit, amet consectetur
                                         adipisicing elit. Quisquam dicta sint
                                         consectetur distinctio natus expedita.
                                     </p>
                                 </div>
-                            </li> */}
+                            </li>
+                        </ol>
+                    </div>
+                </main>
+            </div>
+            <Footer />
+        </>
+    );
+}

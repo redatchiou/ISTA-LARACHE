@@ -7,9 +7,10 @@ import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 
-export default function Login({ status, canResetPassword }) {
+export default function Login({ status, canResetPassword, auth }) {
+    console.log(auth);
     const { data, setData, post, processing, errors, reset } = useForm({
-        fname: "",
+        email: "",
         lname: "",
         password: "",
     });
@@ -93,7 +94,7 @@ export default function Login({ status, canResetPassword }) {
                             href={route("password.request")}
                             className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            Mot de passe oublié?
+                            Mot de1 passe oublié?
                         </Link>
                     )}
 
