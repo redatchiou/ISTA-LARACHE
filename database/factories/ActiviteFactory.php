@@ -20,6 +20,7 @@ class ActiviteFactory extends Factory
 
             'title' => "Titre d'Activites",
             'body' => fake()->text(1000),
+            'title' => true,
         ];
     }
 }

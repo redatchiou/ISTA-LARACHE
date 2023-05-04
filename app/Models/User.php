@@ -28,6 +28,13 @@ class User extends Authenticatable
         'password',
     ];
 
+
+    public function demandes()
+    {
+        return $this->hasMany(demande::class);
+    }
+    
+
     /**
      * The attributes that should be hidden for serialization.
      *

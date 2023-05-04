@@ -1,17 +1,15 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
-import Checkbox from "@/Components/Checkbox";
-import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
+import { TbTrashFilled, TbEdit } from "react-icons/tb";
+import { IconContext } from "react-icons";
 import { useState } from "react";
 
 
 
-export default function Demande({ auth }, demande) {
+
+export default function Demande({ user ,demande }) {
+    // console.log(demande);
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         groupe: "",
@@ -44,10 +42,15 @@ export default function Demande({ auth }, demande) {
         post(route("profile.demande.create"));
     };
 
-    console.log(demande);
+
     return (
         <AuthenticatedLayout
-            auth={auth}
+            user={user}
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                    Mes demandes
+                </h2>
+            }
         >
             <Head title="Demande" />
             {showAlert && (
@@ -129,27 +132,106 @@ export default function Demande({ auth }, demande) {
                 </div>
             </div>
             <div>
-                <table border={2}>
-                    <tr>
-                        <th>stagiaire</th>
-                        <th>groupe</th>
-                        <th>message</th>
-                        <th>date</th>
-                    </tr>
+                <h2 className="text-center uppercase text-indigo-800">Liste de votre demande </h2>
+            </div>
+            <div className="m-7 overflow-x-auto shadow-md sm:rounded-lg">
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr className="text-center">
+                            <th scope="col" className="px-6 py-3">
+                                Sujet
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Message
+                            </th>
 
-                    {/* {demande.map((item) => (
-                            <tr key={item.id}>
-                                <td>{item.name}</td>
-                                <td>{item.groupe}</td>
-                                <td>{item.message}</td>
-                                <td>{item.created_at}</td>
+                            <th scope="col" className="px-6 py-3">
+                                Date de demande
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Modifie
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Annuler
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {demande.map((item) => (
+                            <tr className="bg-white border-b text-center dark:bg-gray-900 dark:border-gray-700">
+                                <th
+                                    scope="row"
+                                    className="px-6 text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                >
+                                    {item.message}
+
+
+
+                                </th>
+                                <td className="px-6 py-4">{item.name} </td>
+                                <td className="px-6 py-4">{item.created_at}</td>
+                                <td className="px-6 py-4">
+                                <Link
+                                        method="delete"
+                                        href={route("demande.destroy", item.id)}
+                                        id={item.id}
+                                        className="font-medium hover:underline"
+
+
+                                    >
+                                          <IconContext.Provider
+                                            value={{
+                                                className:
+                                                    "inline h-7 w-7 pl-1 text-teal-500",
+                                            }}
+                                        >
+                                            <span>
+                                                <TbEdit />
+                                            </span>
+                                        </IconContext.Provider>
+
+                                    </Link>
+
+                                </td>
+                                <td>
+
+                                    <Link
+                                        method="delete"
+                                        href={route("demande.destroy", item.id)}
+                                        id={item.id}
+                                        className="font-medium hover:underline"
+
+
+                                    >
+                                         <IconContext.Provider
+                                            value={{
+                                                className:
+                                                    "inline h-6 w-6 pl-1  text-red-500",
+                                            }}
+                                        >
+                                            <span>
+                                                <TbTrashFilled />
+                                            </span>
+                                        </IconContext.Provider>
+
+                                    </Link>
+
+
+                                </td>
                             </tr>
 
-                    ))
-                    } */}
+                        ))
+
+                        }
+
+
+                    </tbody>
+
+
 
                 </table>
             </div>
+
 
         </AuthenticatedLayout>
 

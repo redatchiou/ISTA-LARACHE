@@ -20,8 +20,13 @@ class RegistrationTest extends TestCase
     public function test_new_users_can_register(): void
     {
         $response = $this->post('/register', [
-            'name' => 'Test User',
+            'fname' => 'Test Fname',
+            'lname' => 'Test Lname',
             'email' => 'test@example.com',
+            'tel' => "_21323",
+            'nf' => "NF",
+            'filiere' => "Group",
+            'group' => "Group",
             'password' => 'password',
             'password_confirmation' => 'password',
         ]);

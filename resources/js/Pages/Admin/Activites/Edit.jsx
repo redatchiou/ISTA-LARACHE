@@ -5,24 +5,25 @@ import JoditEditor from "jodit-react";
 import "../../../../css/jodit.css";
 import { useForm, Head, Link } from "@inertiajs/react";
 
-export default function Activites({ admin, placeholder }) {
+export default function Activites({ admin, placeholder, icontent }) {
+    console.table(icontent);
     const editor = useRef(null);
-    const [content, setContent] = useState("");
+    const [content, setContent] = useState(icontent.body);
 
-    const { data, setData, post, errors } = useForm({
-        title: "",
+    const { data, setData, patch, errors } = useForm({
+        title: icontent.title,
         body: "",
     });
     const submit = (e) => {
         e.preventDefault();
-        console.log(data);
-        post(route("admin.activites.store"));
+        
+        patch(route("admin.activites.update", icontent.id));
     };
     const handleFileUpload = (file) => {
         const formData = new FormData();
         formData.append("file", file);
         // post(route("admin.activites.store"), formData);
-        fetch(route("admin.activites.store"), {
+        fetch(route("admin.activites.update"), {
             method: "POST",
             body: formData,
         });
@@ -85,6 +86,7 @@ export default function Activites({ admin, placeholder }) {
                             Titre d'activite
                         </label>
                         <input
+                            defaultValue={icontent.title}
                             onChange={(e) => setData("title", e.target.value)}
                             type="text"
                             id="title"
@@ -113,7 +115,7 @@ export default function Activites({ admin, placeholder }) {
                             />
                         </div>
                         <PrimaryButton type="submit" className="mt-2">
-                            Publier
+                            Mise a jour
                         </PrimaryButton>
                     </div>
                 </form>

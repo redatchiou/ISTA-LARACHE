@@ -1,11 +1,14 @@
 import GeneralLayout from "@/Layouts/GeneralLayout";
 import { Head, Link } from "@inertiajs/react";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { MdAlternateEmail } from "react-icons/md";
+import Footer from "@/Components/Footer";
+
 export default function Contact() {
     return (
         <>
             <Head title="Filieres" />
             <GeneralLayout
-                auth={{ user: { nom: "ali", prenom: "jalol" } }}
                 header={
                     <div className="flex flex-row max-sm:flex-col justify-start">
                         <Link href="/contact">
@@ -19,29 +22,74 @@ export default function Contact() {
                     </div>
                 }
             >
-                <div className="flex flex-auto justify-around">
-                    <div>Email</div>
-                    <div>Contact</div>
-                    <div>Tel</div>
-                </div>
-                <hr className="my-5" />
 
-                <form>
-                    <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                        <div className="pl-4">
+<div class="flex items-center justify-center p-5">
+
+
+<div class="mx-auto w-full max-w-[550px]">
+
+    <form >
+    {/* onSubmit={submit} */}
+
+        <div class="mb-5">
+            <label
+                for="email"
+                class="mb-3 block text-base font-medium text-[#07074D]"
+            >
+                Sujet
+            </label>
+            <input
+                type="text"
+                name="question"
+
+                required
+                // onChange={onHandleChange}
+                // value={data.question}
+                placeholder="Sujet"
+                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
+        </div>
+
+        <div class="mb-5">
+            <label
+                for="message"
+                class="mb-3 block text-base font-medium text-[#07074D]"
+            >
+                Message
+            </label>
+            <textarea
+                rows="4"
+                required
+                name="response"
+
+                // onChange={onHandleChange}
+                // value={data.response}
+                placeholder="Entree votre message"
+                class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            ></textarea>
+        </div>
+        <div>
+            <button type="submit" class="block uppercase mx-auto shadow bg-indigo-800 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded">Envoyee</button>
+        </div>
+    </form>
+
+</div>
+</div>
+                {/* <form className="m-2">
+                    <div class="w-full mb-4 bg-white border border-gray-200 rounded-lg ">
+                        <div className="pl-4 mb-2">
                             <label
                                 for="small-input"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                class="block mb-2 text-sm font-medium dark:text-white"
                             >
-                                Small input
+                                Sujet
                             </label>
                             <input
                                 type="text"
                                 id="small-input"
-                                class="block w-1/4 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="block w-1/2 p-2  border border-gray-300 rounded-lg sm:text-xs focus:ring-blue-500 focus:border-blue-500  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             />
                         </div>
-                        <br />
 
                         <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                             <label for="comment" class="sr-only">
@@ -49,8 +97,9 @@ export default function Contact() {
                             </label>
                             <textarea
                                 id="comment"
-                                rows="4"
-                                class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                                rows="2"
+                                cols="2"
+                                class="w-full text-sm border border-gray-300 bg-white rounded-lg dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                                 placeholder="Saiser vote meeage..."
                                 required
                             ></textarea>
@@ -64,8 +113,28 @@ export default function Contact() {
                             </button>
                         </div>
                     </div>
-                </form>
+                </form> */}
+
+                {/* <div className="flex flex-row justify-between">
+                    <div className="flex-1 p-5">
+                        <span className="text-lg">
+                            <MdAlternateEmail />{" "}
+                        </span>
+                        <span className="bg-yellow-200 font-mono">
+                            mail@mail.com
+                        </span>{" "}
+                    </div>
+                    <div className="flex-1 p-5">
+                        <span className="text-lg">
+                            <BsFillTelephoneFill />{" "}
+                        </span>
+                        <span className="bg-yellow-200 font-mono">
+                            +212 54085403
+                        </span>{" "}
+                    </div>
+                </div> */}
             </GeneralLayout>
+            <Footer />
         </>
     );
 }

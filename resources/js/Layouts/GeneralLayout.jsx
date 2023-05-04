@@ -4,19 +4,30 @@ import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
+import "../../css/news_bar.css";
 
-export default function GeneralLayout({ auth, header, children }) {
+export default function GeneralLayout({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+
+
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+        <div className="min-h-screen  bg-gray-100">
+            <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
+{/* 
+                <div className="bg-slate-900_ bg-blue-700 flex overflow-hidden">
+                    <span className="inline-block text-gray-100 my-1 text-lg animate-scroll whitespace-nowrap">
+                    ISTA Larache est un établissement de formation professionnelle situé dans la ville de Larache,
+                     au Maroc. ISTA est l'abréviation d'Institut Spécialisé de Technologie Appliquée.
+                    </span>
+                </div> */}
+
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
                     <div className="flex justify-between h-16 ">
                         <div className="flex justify-end">
                             <div className="shrink-0 flex items-center ">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo className="block h-9 w-auto fill-current" />
                                 </Link>
                             </div>
 
@@ -38,6 +49,7 @@ export default function GeneralLayout({ auth, header, children }) {
                                     active={route().current("contact")}
                                 >
                                     Contact
+
                                 </NavLink>
 
                                 <NavLink
@@ -63,7 +75,13 @@ export default function GeneralLayout({ auth, header, children }) {
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
                             <div className="ml-3 relative">
-                                {auth.user ? (
+                                <Link
+                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                    href={route("dashboard")}
+                                >
+                                    Espace Stagiaire
+                                </Link>
+                                {/* {!user ? (
                                     <Link
                                         className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                         href={route("dashboard")}
@@ -108,7 +126,7 @@ export default function GeneralLayout({ auth, header, children }) {
                                             </Dropdown.Link>
                                         </Dropdown.Content>
                                     </Dropdown>
-                                )}
+                                )} */}
                             </div>
                         </div>
 

@@ -6,6 +6,7 @@ import Accordion from "@/Components/Accordion";
 import DisclosureFake from "@/Components/Disclosure";
 import Footer from "@/Components/Footer";
 import GeneralLayout from "@/Layouts/GeneralLayout";
+
 export default function Faq({ faqs, filtered, keyword }) {
     console.log(filtered);
     console.log(faqs);
@@ -24,7 +25,6 @@ export default function Faq({ faqs, filtered, keyword }) {
             <Head title="Faq" />
 
             <GeneralLayout
-                auth={{ user: { nom: "ali", prenom: "jalol" } }}
                 header={
                     <div className="flex flex-row max-sm:flex-col items-center justify-evenly">
                         <Link href="/faq">

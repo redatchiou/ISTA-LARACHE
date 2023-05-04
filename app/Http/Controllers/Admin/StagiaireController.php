@@ -20,11 +20,12 @@ class StagiaireController extends Controller
     public function index($group = "")
     {
         // dd($group);
-        $stagiaires = User::paginate(7);
+        $stagiaires = User::orderBy('created_at', 'desc')->paginate(7);
         if ($group) {
             $stagiaires = User::where('group', $group)->paginate(5);
         };
         return Inertia::render('Admin/Stagiaire/Index', [
+            'admin' => auth('admin')->user(),
             'stagiaires' => $stagiaires,
             'allowed_nf' => \App\Models\Filiere::distinct()->pluck('nf'),
             'allowed_filiere' => \App\Models\Filiere::all('name', 'nf'),

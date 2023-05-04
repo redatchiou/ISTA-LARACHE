@@ -5,9 +5,10 @@ import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 
-export default function Authenticated({ auth, header, children }) {
+export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
+        useState(user);
+
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -31,26 +32,34 @@ export default function Authenticated({ auth, header, children }) {
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href={route("Profil.note")}
-                                    active={route().current("Profil.note")}
+                                    href={route("profile.notes")}
+                                    active={route().current("profile.notes")}
                                 >
                                     Notes
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href={route("login")}
+                                    href="#"
                                     // active={route().current("login")}
                                 >
                                     Modules
                                 </NavLink>
                             </div>
+                            {/* <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink
+                                    href={route("dashboard")}
+                                    // active={route().current("dashboard")}
+                                >
+                                    Clubs
+                                </NavLink>
+                            </div> */}
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href={route("profile.edit")}
-                                    // active={route().current("profile.edit")}
+                                    href={route("Profil.demande")}
+                                    active={route().current("Profil.demande")}
                                 >
-                                    Profil
+                                    Demande
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -58,15 +67,7 @@ export default function Authenticated({ auth, header, children }) {
                                     href={route("dashboard")}
                                     // active={route().current("dashboard")}
                                 >
-                                    Clubs
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("Profil.demande")}
-                                    active={route().current("Profil.demande")}
-                                >
-                                    Demande
+                                    Emploi
                                 </NavLink>
                             </div>
                         </div>
@@ -81,9 +82,9 @@ export default function Authenticated({ auth, header, children }) {
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 <span className="mr-2">
-                                                    {auth.user.prenom +
+                                                    {user.fname +
                                                         " " +
-                                                        auth.user.nom}
+                                                        user.lname}
                                                 </span>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -99,21 +100,21 @@ export default function Authenticated({ auth, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        {/* <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            Profil
-                                        </Dropdown.Link> */}
                                         <div>
                                             <div className="block w-full px-4 py-1 text-left text-lg leading-5 text-gray-700  focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                                {auth.user.prenom +
-                                                    " " +
-                                                    auth.user.nom}
+                                                {user.fname + " " + user.lname}
                                             </div>
                                             <div className="block w-full px-4 text-left text-sm leading-5 text-gray-700  focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                                {auth.user.email}
+                                                {user.email}
                                             </div>
                                         </div>
+                                        <Dropdown.Link
+                                            href={route("profile.edit")}
+                                            method="get"
+                                            as="button"
+                                        >
+                                            Parametres
+                                        </Dropdown.Link>
                                         <hr />
                                         <Dropdown.Link
                                             href={route("logout")}
@@ -209,10 +210,10 @@ export default function Authenticated({ auth, header, children }) {
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
                             <div className="font-medium text-base text-gray-800">
-                                {auth.user.prenom}
+                                {user.fname + " " + user.lname}
                             </div>
                             <div className="font-medium text-sm text-gray-500">
-                                {auth.user.email}
+                                {user.email}
                             </div>
                         </div>
 

@@ -6,7 +6,6 @@ export default function Activite({ activites }) {
         <>
             <Head title="Activites" />
             <GeneralLayout
-                auth={{ user: { nom: "ali", prenom: "jalol" } }}
                 header={
                     <div className="flex flex-row max-sm:flex-col justify-start">
                         <Link href="/activites">
@@ -114,7 +113,7 @@ export default function Activite({ activites }) {
                 </div>
             </GeneralLayout>
             <hr className="my-5 border-none" />
-            <Footer />
+            <Footer/>
         </>
     );
 }

@@ -19,6 +19,7 @@ class AdminController extends Controller
     public function edit(Request $request): Response
     {
         return Inertia::render('Admin/Edit', [
+            'admin' => auth('admin')->user(),
             'mustVerifyEmail' => $request->user('admin') instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
@@ -31,9 +32,7 @@ class AdminController extends Controller
     {
 
         $request->user('admin')->fill($request->validated());
-        // if ($request->user('admin')->isDirty('email')) {
-        //     $request->user('admin')->email_verified_at = null;
-        // }
+        
 
         $request->user('admin')->save();
 

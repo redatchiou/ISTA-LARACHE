@@ -1,5 +1,7 @@
 import { Link, Head } from "@inertiajs/react";
 import GeneralLayout from "@/Layouts/GeneralLayout";
+import Footer from "@/Components/Footer";
+
 export default function Filieres({ filieres, modules, info, home }) {
     console.log(modules);
     const filieres_spe = filieres.filter((filiere) => filiere.nf === "Spe");
@@ -15,7 +17,6 @@ export default function Filieres({ filieres, modules, info, home }) {
             <Head title="Filieres" />
 
             <GeneralLayout
-                auth={{ user: { nom: "ali", prenom: "jalol" } }}
                 header={
                     <div className="flex flex-row max-sm:flex-col justify-start">
                         <Link href="/filieres">
@@ -36,19 +37,19 @@ export default function Filieres({ filieres, modules, info, home }) {
                                 <h3 className="border-l p-1 border-l-slate-500 font-extrabold">
                                     {index === 0 ? (
                                         <span className="text-green-500">
-                                            TS
+                                            Tchnicien specialise
                                         </span>
                                     ) : index === 1 ? (
                                         <span className="text-emerald-700">
-                                            T
+                                            Tchnicien
                                         </span>
                                     ) : index === 2 ? (
                                         <span className="text-amber-600">
-                                            Qualif
+                                            Qualification
                                         </span>
                                     ) : (
                                         <span className="text-sky-600">
-                                            Spe
+                                            Specialisation
                                         </span>
                                     )}
                                 </h3>
@@ -109,11 +110,12 @@ export default function Filieres({ filieres, modules, info, home }) {
                                 </div>
                             </>
                         ) : (
-                            <div>{home}</div>
+                            <div className="ml-40 mt-5 ">{home}</div>
                         )}
                     </div>
                 </div>
             </GeneralLayout>
+            <Footer />
         </>
     );
 }

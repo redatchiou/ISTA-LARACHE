@@ -1,8 +1,8 @@
 import { Transition } from "@headlessui/react";
 import { Link } from "@inertiajs/react";
 import { useState, useEffect, Fragment } from "react";
-
-export default function Card({ title, content, path }) {
+import { IconContext } from "react-icons";
+export default function Card({ title, content = "", icon }) {
     // const [offset, setOffset] = useState(0);
     // const [IsHovering, setIsHovering] = useState(false);
     // useEffect(() => {
@@ -17,16 +17,17 @@ export default function Card({ title, content, path }) {
         <div
             // onMouseEnter={() => setIsHovering(true)}
             // onMouseLeave={() => setIsHovering(false)}
-            className="block h-auto overflow-hidden mx-2 m-5 p-6 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="block h-48 w-60 ml-5 overflow-hidden mx-2 m-5 p-6 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
-            <svg
-                className="w-10 h-10 mb-2 mx-auto text-gray-500 dark:text-gray-400"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 16 16"
+            <IconContext.Provider
+                value={{
+                    className:
+                        "w-10 h-10 mb-2 mx-auto text-gray-500 dark:text-gray-400",
+                }}
             >
-                {path}
-            </svg>
+                <div>{icon}</div>
+            </IconContext.Provider>
+
             <span href="#">
                 <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
                     {title}

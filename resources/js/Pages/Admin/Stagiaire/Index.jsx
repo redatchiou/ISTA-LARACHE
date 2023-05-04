@@ -9,12 +9,11 @@ import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import DangerButton from "@/Components/DangerButton";
-import Select from "@/Components/Select";
-import Authenticated from "@/Layouts/AuthenticatedLayout";
 import Create from "./Create";
 import Update from "./Edit";
 
 export default function Stagiaire({
+    admin,
     stagiaires,
     allowed_nf,
     allowed_filiere,
@@ -48,16 +47,12 @@ export default function Stagiaire({
     };
     const deleteUser = (e) => {
         e.preventDefault();
-		if(window.confirm('are you sur'){
-			destroy(route("stagiaire.destroy", { id: stagiaire.id }), {
+
+        destroy(route("stagiaire.destroy", { id: stagiaire.id }), {
             preserveScroll: true,
             onSuccess: () => closeModalDelete(),
             onFinish: () => reset(),
         });
-			
-		})
-
-        
     };
     // update
     const confirmUserEdit = (stagiaire) => {
@@ -84,15 +79,17 @@ export default function Stagiaire({
             <Head title="Stagaires" />
 
             <AdminLayout
-                auth={{ user: { nom: "ali", prenom: "jalol" } }}
+                auth={admin}
                 header={
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        La page des Stagiaires ...
-                    </h2>
+                    <Link href="/admin/stagiaires">
+                        <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                            Stagiaires
+                        </h2>
+                    </Link>
                 }
             >
                 <div className="relative mr-5 mt-5 overflow-x-auto shadow-md sm:rounded-lg">
-                    <div className="flex justify-around pb-4 m-3 bg-white dark:bg-gray-900">
+                    <div className="flex justify-around py-4 m-3 bg-white dark:bg-gray-900">
                         <div className="text-center my-auto">
                             <PrimaryButton onClick={confirmUserCreate}>
                                 Ajouter Stagiaire
@@ -178,7 +175,7 @@ export default function Stagiaire({
                                             onClick={() => {
                                                 confirmUserEdit(stagiaire);
                                             }}
-                                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                            className="font-medium  hover:underline"
                                         >
                                             Modifier
                                         </PrimaryButton>
@@ -194,7 +191,7 @@ export default function Stagiaire({
                                             onClick={() => {
                                                 confirmUserDeletion(stagiaire);
                                             }}
-                                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                            className="font-medium hover:underline"
                                         >
                                             Supprimer
                                         </DangerButton>
@@ -209,7 +206,7 @@ export default function Stagiaire({
                                         </Link>
                                     )}
                                 </td>
-                                <td colSpan={5}></td>
+                                <td colSpan={4}></td>
                                 <td className="p-5">
                                     {!(
                                         stagiaires.last_page ===

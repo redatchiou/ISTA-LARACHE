@@ -10,17 +10,18 @@ export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
     className,
+    user,
 }) {
-    const user = usePage().props.auth.user;
+    // const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
-            prenom: user.prenom,
-            nom: user.nom,
+            fname: user.fname,
+            lname: user.lname,
             tel: user.tel,
             nf: user.nf,
-            spe: user.spe,
-            groupe: user.groupe,
+            filiere: user.filiere,
+            group: user.group,
             email: user.email,
         });
 
@@ -44,34 +45,34 @@ export default function UpdateProfileInformation({
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel for="prenom" value="Prenom" />
+                    <InputLabel for="fname" value="Prenom" />
 
                     <TextInput
-                        id="prenom"
+                        id="fname"
                         className="mt-1 block w-full"
-                        value={data.prenom}
-                        handleChange={(e) => setData("prenom", e.target.value)}
+                        value={data.fname}
+                        handleChange={(e) => setData("fname", e.target.value)}
                         required
                         isFocused
-                        autoComplete="prenom"
+                        autoComplete="fname"
                     />
 
-                    <InputError className="mt-2" message={errors.prenom} />
+                    <InputError className="mt-2" message={errors.fname} />
                 </div>
                 <div>
-                    <InputLabel for="nom" value="Nom" />
+                    <InputLabel for="lname" value="Nom" />
 
                     <TextInput
-                        id="nom"
+                        id="lname"
                         className="mt-1 block w-full"
-                        value={data.nom}
-                        handleChange={(e) => setData("nom", e.target.value)}
+                        value={data.lname}
+                        handleChange={(e) => setData("lname", e.target.value)}
                         required
                         isFocused
-                        autoComplete="nom"
+                        autoComplete="lname"
                     />
 
-                    <InputError className="mt-2" message={errors.nom} />
+                    <InputError className="mt-2" message={errors.lname} />
                 </div>
                 <div>
                     <InputLabel for="tel" value="Tel" />
@@ -122,15 +123,15 @@ export default function UpdateProfileInformation({
                     <InputError className="mt-2" message={errors.nf} />
                 </div>
                 <div>
-                    <InputLabel for="spe" value="Filiere" />
+                    <InputLabel for="filiere" value="Filiere" />
                     <Select
-                        id="spe"
+                        id="filiere"
                         className="mt-1 block w-full"
-                        handleChange={(e) => setData("spe", e.target.value)}
+                        handleChange={(e) => setData("filiere", e.target.value)}
                         required
-                        autoComplete="spe"
+                        autoComplete="filiere"
                     >
-                        <option value={data.spe} defaultValue>
+                        <option value={data.filiere} defaultValue>
                             Spe
                         </option>
                         <option value="ok">Value</option>

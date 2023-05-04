@@ -13,6 +13,8 @@ class Activite extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    
     // protected function body(): Attribute
     // {
     //     return Attribute::make(

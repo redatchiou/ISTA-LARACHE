@@ -16,12 +16,12 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'prenom' => ['string', 'max:255'],
-            'nom' => ['string', 'max:255'],
+            'fname' => ['string', 'max:255'],
+            'lanme' => ['string', 'max:255'],
             'tel' => ['string', 'max:255'],
             'nf' => ['string', 'max:255'],
-            'spe' => ['string', 'max:255'],
-            'groupe' => ['string', 'max:255'],
+            'filiere' => ['string', 'max:255'],
+            'group' => ['string', 'max:255'],
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
         ];
     }
