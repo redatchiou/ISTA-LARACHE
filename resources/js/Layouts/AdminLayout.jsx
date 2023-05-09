@@ -1,13 +1,13 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-export default function AdminLayout({ auth, header, children }) {
+export default function AdminLayout({ header, children }) {
+    const { admin } = usePage().props.auth;
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-
     return (
         <>
             <div className="min-h-screen bg-gray-100">
@@ -43,9 +43,9 @@ export default function AdminLayout({ auth, header, children }) {
                                 </div>
                                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                     <NavLink
-                                        href={route("admin.demands")}
+                                        href={route("admin.requests")}
                                         active={route().current(
-                                            "admin.demands"
+                                            "admin.requests"
                                         )}
                                     >
                                         Demandes
@@ -73,22 +73,36 @@ export default function AdminLayout({ auth, header, children }) {
                                 </div>
                                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                     <NavLink
-                                        // href={route("admin.emplois")}
-                                        // active={route().current(
-                                        //     "admin.emplois"
-                                        // )}
+                                        href={route("admin.filieres")}
+                                        active={route().current(
+                                            "admin.filieres"
+                                        )}
                                     >
                                         Filieres
                                     </NavLink>
                                 </div>
                                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                     <NavLink
-                                        href={route("admin.faqs")}
-                                        active={route().current(
-                                            "admin.faqs"
-                                        )}
+                                        href={route("admin.groups")}
+                                        active={route().current("admin.groups")}
                                     >
-                                        Faqs
+                                        Groupes
+                                    </NavLink>
+                                </div>
+                                <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <NavLink
+                                        href={route("admin.faq")}
+                                        active={route().current("admin.faq")}
+                                    >
+                                        FAQs
+                                    </NavLink>
+                                </div>
+                                <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <NavLink
+                                        href={route("admin.modules")}
+                                        active={route().current("admin.modules")}
+                                    >
+                                        module
                                     </NavLink>
                                 </div>
                             </div>
@@ -103,9 +117,9 @@ export default function AdminLayout({ auth, header, children }) {
                                                     className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                                 >
                                                     <span className="mr-2">
-                                                        {auth.fname +
+                                                        {admin.fname +
                                                             " " +
-                                                            auth.lname}
+                                                            admin.lname}
                                                     </span>
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -128,12 +142,12 @@ export default function AdminLayout({ auth, header, children }) {
                                             </Dropdown.Link>
                                             <div>
                                                 <div className="block w-full px-4 py-1 text-left text-lg leading-5 text-gray-700  focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                                    {auth.fname +
+                                                    {admin.fname +
                                                         " " +
-                                                        auth.lname}
+                                                        admin.lname}
                                                 </div>
                                                 <div className="block w-full px-4 text-left text-sm leading-5 text-gray-700  focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                                    {auth.email}
+                                                    {admin.email}
                                                 </div>
                                             </div>
                                             <hr />
@@ -231,10 +245,10 @@ export default function AdminLayout({ auth, header, children }) {
                         <div className="pt-4 pb-1 border-t border-gray-200">
                             <div className="px-4">
                                 <div className="font-medium text-base text-gray-800">
-                                    {auth.fname + " " + auth.lname}
+                                    {admin.fname + " " + admin.lname}
                                 </div>
                                 <div className="font-medium text-sm text-gray-500">
-                                    {auth.email}
+                                    {admin.email}
                                 </div>
                             </div>
 

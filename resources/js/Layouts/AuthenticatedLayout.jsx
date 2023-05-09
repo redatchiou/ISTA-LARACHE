@@ -3,12 +3,12 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(user);
-
+        useState(false);
+    const { user } = usePage().props.auth;
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -56,18 +56,18 @@ export default function Authenticated({ user, header, children }) {
                             </div> */}
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href={route("Profil.demande")}
-                                    active={route().current("Profil.demande")}
+                                    href={route("requests")}
+                                    active={route().current("requests")}
                                 >
-                                    Demande
+                                    Demander
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href={route("dashboard")}
-                                    // active={route().current("dashboard")}
+                                    href={route("emploi")}
+                                    active={route().current("emploi")}
                                 >
-                                    Emploi
+                                    Empoi
                                 </NavLink>
                             </div>
                         </div>
