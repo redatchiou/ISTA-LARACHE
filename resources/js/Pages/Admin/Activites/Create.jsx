@@ -12,6 +12,7 @@ export default function Activites({ admin, placeholder }) {
     const { data, setData, post, errors } = useForm({
         title: "",
         body: "",
+        is_annonce:false,
     });
     const submit = (e) => {
         e.preventDefault();

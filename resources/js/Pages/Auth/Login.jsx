@@ -37,7 +37,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
+            <Head title="Connexion" />
 
             {status && (
                 <div className="mb-4 font-medium text-sm text-green-600">
@@ -106,13 +106,18 @@ export default function Login({ status, canResetPassword }) {
                         Connexion
                     </PrimaryButton>
                 </div>
+                <hr className="mt-4" />
+                <div className="mt-4">
+                    <div className="text-center text-black">or</div>
+                    <Link
+                        as="button"
+                        href={route("register")}
+                        className="w-full text-gray-600 underline rounded-md dark:text-gray-500"
+                    >
+                        Créer un compte
+                    </Link>
+                </div>
             </form>
-            {/* <Link
-                href={route("register")}
-                className="text-base text-gray-700 dark:text-gray-500 underline"
-            >
-                Créer un compte
-            </Link> */}
         </GuestLayout>
     );
 }

@@ -1,7 +1,5 @@
 import GeneralLayout from "@/Layouts/GeneralLayout";
 import { Head, Link } from "@inertiajs/react";
-import Footer from "@/Components/Footer";
-
 // ------------------------
 import { useCallback } from "react";
 
@@ -74,7 +72,6 @@ export default function Institut() {
                     </p>
                 </div>
             </GeneralLayout>
-            <Footer />
         </>
     );
 }

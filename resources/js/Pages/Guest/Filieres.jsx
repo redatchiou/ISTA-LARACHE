@@ -1,15 +1,19 @@
 import { Link, Head } from "@inertiajs/react";
 import GeneralLayout from "@/Layouts/GeneralLayout";
-import Footer from "@/Components/Footer";
-
 export default function Filieres({ filieres, modules, info, home }) {
     console.log(modules);
-    const filieres_spe = filieres.filter((filiere) => filiere.nf === "Spe");
-    const filieres_qualif = filieres.filter(
-        (filiere) => filiere.nf === "Qualif"
+    const filieres_spe = filieres.filter(
+        (filiere) => filiere.nf === "Spécialisation"
     );
-    const filieres_t = filieres.filter((filiere) => filiere.nf === "T");
-    const filieres_ts = filieres.filter((filiere) => filiere.nf === "TS");
+    const filieres_qualif = filieres.filter(
+        (filiere) => filiere.nf === "Qualification"
+    );
+    const filieres_t = filieres.filter(
+        (filiere) => filiere.nf === "Technicien"
+    );
+    const filieres_ts = filieres.filter(
+        (filiere) => filiere.nf === "Technicien Spécialisé"
+    );
     const list = [filieres_ts, filieres_t, filieres_qualif, filieres_spe];
 
     return (
@@ -37,11 +41,11 @@ export default function Filieres({ filieres, modules, info, home }) {
                                 <h3 className="border-l p-1 border-l-slate-500 font-extrabold">
                                     {index === 0 ? (
                                         <span className="text-green-500">
-                                            Tchnicien specialise
+                                           Technicien Spécialisé
                                         </span>
                                     ) : index === 1 ? (
                                         <span className="text-emerald-700">
-                                            Tchnicien
+                                           Technicien
                                         </span>
                                     ) : index === 2 ? (
                                         <span className="text-amber-600">
@@ -49,7 +53,7 @@ export default function Filieres({ filieres, modules, info, home }) {
                                         </span>
                                     ) : (
                                         <span className="text-sky-600">
-                                            Specialisation
+                                            Spécialisation
                                         </span>
                                     )}
                                 </h3>
@@ -71,7 +75,7 @@ export default function Filieres({ filieres, modules, info, home }) {
                                             method="get"
                                             as="button"
                                             href={route("filieres", {
-                                                id: f.name,
+                                                id: f.code,
                                             })}
                                         >
                                             {f.name}
@@ -97,9 +101,8 @@ export default function Filieres({ filieres, modules, info, home }) {
                                             </h3>
                                             <ul className="pl-5">
                                                 {modules.map((module) => (
-                                                    <li>
-                                                        {module.name}:
-                                                        {module.description}
+                                                    <li className="text-lg">
+                                                        {module.name} : {module.description}
                                                     </li>
                                                 ))}
                                             </ul>
@@ -110,12 +113,11 @@ export default function Filieres({ filieres, modules, info, home }) {
                                 </div>
                             </>
                         ) : (
-                            <div className="ml-40 mt-5 ">{home}</div>
+                            <div>{home}</div>
                         )}
                     </div>
                 </div>
             </GeneralLayout>
-            <Footer />
         </>
     );
 }

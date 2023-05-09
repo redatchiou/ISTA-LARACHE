@@ -1,8 +1,10 @@
-import GeneralLayout from "@/Layouts/GeneralLayout";
+import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
-import LBox from "@/Components/Listbox";
 import { BsArrowRight } from "react-icons/bs";
-export default function Emplois({ emploi, groups }) {
+export default function Emplois({ auth, emploi }) {
+    const my_group = auth.user.group;
+    console.log(1, emploi);
+
     function filterDays(day, quarter) {
         const result = emploi.filter(
             (i) => i.day_of_week === day && i.quarter === quarter
@@ -11,8 +13,8 @@ export default function Emplois({ emploi, groups }) {
     }
     return (
         <>
-            <Head title="Emplois" />
-            <GeneralLayout
+            <Head title="Emplois de Temps" />
+            <Authenticated
                 header={
                     <div className="flex flex-row max-sm:flex-col justify-start">
                         <Link href="/emplois">
@@ -20,25 +22,19 @@ export default function Emplois({ emploi, groups }) {
                                 title="Contact"
                                 className="font-semibold text-xl text-gray-800 leading-tight"
                             >
-                                Emplois
+                                Emploi de Temps
                             </h2>
                         </Link>
                     </div>
                 }
             >
-                <div className="mt-2">
-                    {!!groups.length ? (
-                        <LBox
-                            groups={groups}
-                            current={!!emploi.length ? emploi[0].group : ""}
-                            named_route="emplois"
-                        />
-                    ) : (
-                        "Aucun Groupe"
-                    )}
-                </div>
-
                 <div className="m-4 overflow-x-scroll">
+                    <h1 className="px-2 mb-1">
+                        Votre groupe :{" "}
+                        <span className="font-extrabold underline underline-offset-4">
+                            {my_group}
+                        </span>
+                    </h1>
                     {!!emploi.length && (
                         <table className="w-full mx-auto table-fixed_ text-center shadow-2xl border-collapse border  border-neutral-500 text-sm text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -185,7 +181,7 @@ export default function Emplois({ emploi, groups }) {
                         </table>
                     )}
                 </div>
-            </GeneralLayout>
+            </Authenticated>
         </>
     );
 }

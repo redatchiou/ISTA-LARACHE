@@ -5,30 +5,49 @@ import TextInput from "@/Components/TextInput";
 import Select from "@/Components/Select";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
-
+import { useEffect } from "react";
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
     className,
-    user,
+    filieres,
+    groups,
 }) {
-    // const user = usePage().props.auth.user;
+    const user = usePage().props.auth.user;
+    console.log(user.filiere);
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
-        useForm({
-            fname: user.fname,
-            lname: user.lname,
-            tel: user.tel,
-            nf: user.nf,
-            filiere: user.filiere,
-            group: user.group,
-            email: user.email,
-        });
-
+    const {
+        data,
+        setData,
+        patch,
+        reset,
+        errors,
+        processing,
+        recentlySuccessful,
+    } = useForm({
+        fname: user.fname,
+        lname: user.lname,
+        email: user.email,
+        tel: user.tel,
+        nf: user.nf,
+        filiere: user.filiere,
+        group: user.group,
+    });
+    const allowed_filieres = filieres.filter(
+        (filiere) => filiere.nf === data.nf
+    );
+    const allowed_groups = groups.filter(
+        (filiere) => filiere.name === data.filiere
+    );
+    useEffect(() => {
+        reset("filiere", "group");
+    }, [data.nf]);
     const submit = (e) => {
         e.preventDefault();
 
-        patch(route("profile.update"));
+        patch(route("profile.update"), {
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -112,12 +131,17 @@ export default function UpdateProfileInformation({
                         handleChange={(e) => setData("nf", e.target.value)}
                         required
                         autoComplete="nf"
+                        defaultValue={data.nf}
                     >
-                        <option value={data.nf} defaultValue>
-                            NF
+                        <option value="" disabled>
+                            Changer son niveau
                         </option>
-                        <option value="ok">Value</option>
-                        <option value="ok">Value</option>
+                        <option value="Technicien Spécialisé">
+                            Technicien Spécialisé{" "}
+                        </option>
+                        <option value="Technicien">Technicien</option>
+                        <option value="Qualification">Qualification</option>
+                        <option value="Spécialisation">Spécialisation</option>
                     </Select>
 
                     <InputError className="mt-2" message={errors.nf} />
@@ -130,30 +154,35 @@ export default function UpdateProfileInformation({
                         handleChange={(e) => setData("filiere", e.target.value)}
                         required
                         autoComplete="filiere"
+                        defaultValue={data.filiere}
                     >
-                        <option value={data.filiere} defaultValue>
-                            Spe
+                        <option value="" disabled>
+                            Choisissez une filière
                         </option>
-                        <option value="ok">Value</option>
-                        <option value="ok">Value</option>
+                        {allowed_filieres.map((filiere) => (
+                            <option value={filiere.name}>{filiere.name}</option>
+                        ))}
                     </Select>
 
                     <InputError className="mt-2" message={errors.spe} />
                 </div>
                 <div>
-                    <InputLabel for="groupe" value="Groupe" />
+                    <InputLabel for="group" value="Groupe" />
                     <Select
-                        id="groupe"
+                        id="group"
                         className="mt-1 block w-full"
-                        handleChange={(e) => setData("groupe", e.target.value)}
+                        handleChange={(e) => setData("group", e.target.value)}
                         required
-                        autoComplete="groupe"
+                        autoComplete="group"
+                        defaultValue={data.group}
                     >
-                        <option value={data.groupe} defaultValue>
-                            Group
+                        <option value="" disabled>
+                            Choisissez un groupe
                         </option>
-                        <option value="ok">Value</option>
-                        <option value="ok">Value</option>
+
+                        {allowed_groups.map((filiere) => (
+                            <option value={filiere.code}>{filiere.code}</option>
+                        ))}
                     </Select>
 
                     <InputError className="mt-2" message={errors.groupe} />

@@ -4,11 +4,9 @@ import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
 import { Head } from "@inertiajs/react";
 
-export default function Edit({ user, mustVerifyEmail, status }) {
-    console.log(user);
+export default function Edit({ filieres, groups, mustVerifyEmail, status }) {
     return (
         <AuthenticatedLayout
-            user={user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Mes infos
@@ -24,7 +22,8 @@ export default function Edit({ user, mustVerifyEmail, status }) {
                             mustVerifyEmail={mustVerifyEmail}
                             status={status}
                             className="max-w-xl"
-                            user={user}
+                            groups={groups}
+                            filieres={filieres}
                         />
                     </div>
 

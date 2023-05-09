@@ -8,12 +8,11 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import Modal from "@/Components/Modal";
-export default function Emplois({ admin, emploi, groups }) {
+export default function Emplois({ emploi, groups }) {
     function filterDays(day, quarter) {
         const result = emploi.filter(
             (i) => i.day_of_week === day && i.quarter === quarter
         );
-        // console.log(result[0]);
         return result[0];
     }
     const {
@@ -54,9 +53,9 @@ export default function Emplois({ admin, emploi, groups }) {
         });
         confirm("sure")
             ? destroy(route("admin.emplois.destroy", data.id), {
-                preserveScroll: true,
-                onFinish: () => reset(),
-            })
+                  preserveScroll: true,
+                  onFinish: () => reset(),
+              })
             : reset();
     };
 
@@ -77,7 +76,6 @@ export default function Emplois({ admin, emploi, groups }) {
         <>
             <Head title="Les Emplois | Admin" />
             <AdminLayout
-                auth={admin}
                 header={
                     <Link href="/admin/emplois">
                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">
@@ -107,7 +105,6 @@ export default function Emplois({ admin, emploi, groups }) {
                                 type="text"
                                 id="module"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="module"
                                 required
                             />
                         </div>
@@ -293,53 +290,53 @@ export default function Emplois({ admin, emploi, groups }) {
                                                                 day,
                                                                 quarter
                                                             ).subject && (
-                                                                    <MdDelete
-                                                                        className="cursor-pointer p-0.5 rounded-sm text-red-500 hover:text-white hover:bg-red-500"
-                                                                        size={22}
-                                                                        onClick={() => {
-                                                                            clearData(
-                                                                                filterDays(
-                                                                                    day,
-                                                                                    quarter
-                                                                                )
-                                                                            );
-                                                                        }}
-                                                                    />
-                                                                )}
+                                                                <MdDelete
+                                                                    className="cursor-pointer p-0.5 rounded-sm text-red-500 hover:text-white hover:bg-red-500"
+                                                                    size={22}
+                                                                    onClick={() => {
+                                                                        clearData(
+                                                                            filterDays(
+                                                                                day,
+                                                                                quarter
+                                                                            )
+                                                                        );
+                                                                    }}
+                                                                />
+                                                            )}
                                                         </span>
                                                         {filterDays(
                                                             day,
                                                             quarter
                                                         ).subject && (
-                                                                <div className="">
-                                                                    <div className="text-lg">
-                                                                        {
-                                                                            filterDays(
-                                                                                day,
-                                                                                quarter
-                                                                            )
-                                                                                .subject
-                                                                        }
-                                                                    </div>
-                                                                    <span className="underline">
-                                                                        {
-                                                                            filterDays(
-                                                                                day,
-                                                                                quarter
-                                                                            )
-                                                                                .trainer
-                                                                        }
-                                                                    </span>
-                                                                    <code className="text-xs rounded-md font-sans bg-amber-400 text-white ml-1 p-0.5">
-                                                                        {
-                                                                            filterDays(
-                                                                                day,
-                                                                                quarter
-                                                                            ).salle
-                                                                        }
-                                                                    </code>
+                                                            <div className="">
+                                                                <div className="text-lg">
+                                                                    {
+                                                                        filterDays(
+                                                                            day,
+                                                                            quarter
+                                                                        )
+                                                                            .subject
+                                                                    }
                                                                 </div>
-                                                            )}
+                                                                <span className="underline">
+                                                                    {
+                                                                        filterDays(
+                                                                            day,
+                                                                            quarter
+                                                                        )
+                                                                            .trainer
+                                                                    }
+                                                                </span>
+                                                                <code className="text-xs rounded-md font-sans bg-amber-400 text-white ml-1 p-0.5">
+                                                                    {
+                                                                        filterDays(
+                                                                            day,
+                                                                            quarter
+                                                                        ).salle
+                                                                    }
+                                                                </code>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </td>
                                             )

@@ -16,7 +16,7 @@ export default function Activites({ admin, placeholder, icontent }) {
     });
     const submit = (e) => {
         e.preventDefault();
-        
+        console.log(data);
         patch(route("admin.activites.update", icontent.id));
     };
     const handleFileUpload = (file) => {
