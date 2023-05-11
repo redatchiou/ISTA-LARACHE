@@ -2,26 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Inertia\Inertia;
-use App\Models\Emploi;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Faq;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 
-class EmploiController extends Controller
+class FaqController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(string $group = "")
+    public function index()
     {
-        if (empty($group)) {
-            $emploi = '';
-        }
-        $groups = \App\Models\Emploi::distinct()->pluck('group');
-        $emploi = \App\Models\Emploi::where('group', $group)->get();
-        return Inertia::render('Admin/Emplois', ['emploi' => $emploi, 'groups' => $groups, 'admin' => auth('admin')->user()]);
+        return Inertia::render('Admin/Faq', ['faqs' => Faq::orderBy('created_at', 'desc')->get()]);
     }
 
     /**
@@ -42,7 +37,11 @@ class EmploiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $valideted = $request->validate([
+            'question' => 'required|max:225',
+            'response' => 'required|max:500',
+        ]);
+        Faq::create($valideted);
     }
 
     /**
@@ -76,17 +75,15 @@ class EmploiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'subject' => 'required',
-            'trainer' => 'required',
-            'salle' => 'required',
+        $valideted = $request->validate([
+            'question' => 'required',
+            'response' => 'required',
         ]);
-
-        $emploi = Emploi::find($id);
-        $emploi->subject = $validated['subject'];
-        $emploi->trainer = $validated['trainer'];
-        $emploi->salle = $validated['salle'];
-        $emploi->save();
+        $faq = Faq::find($id);
+        $faq->question = $valideted['question'];
+        $faq->response = $valideted['response'];
+        $faq->save();
+        return redirect()->route('admin.faq');
     }
 
     /**
@@ -97,10 +94,7 @@ class EmploiController extends Controller
      */
     public function destroy($id)
     {
-        $emploi = Emploi::find($id);
-        $emploi->subject = "";
-        $emploi->trainer = "";
-        $emploi->salle = "";
-        $emploi->save();
+        $faq = Faq::find($id);
+        $faq->delete();
     }
 }

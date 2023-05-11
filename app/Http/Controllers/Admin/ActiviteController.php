@@ -24,14 +24,14 @@ class ActiviteController extends Controller
                 'id' => $record->id,
                 'title' => $record->title,
                 'body' => $record->body,
+                'is_annonce' => $record->is_annonce,
+
                 'created_at' => $record->created_at->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
                 'updated_at' => $record->updated_at->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
             ];
         });
         return Inertia::render('Admin/Activites/Index', ['admin' => auth('admin')->user(), 'activites' => $activites]);
     }
-   
-
 
     /**
      * Show the form for creating a new resource.
@@ -40,7 +40,11 @@ class ActiviteController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Activites/Create', ['admin' => auth('admin')->user()]);
+        return Inertia::render('Admin/Activites/Create');
+    }
+    public function create_ad()
+    {
+        return Inertia::render('Admin/Activites/Ad');
     }
 
     /**
@@ -69,13 +73,29 @@ class ActiviteController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'body' => 'required',
+            'is_annonce' => 'required'
         ]);
-        // dd($validated['body']);
+        if ($validated['is_annonce']) {
+            $annonce = \App\Models\Activite::where('is_annonce', true)->first();
+            if (!$annonce) {
+                Activite::create([
+                    'title' => $validated['title'],
+                    'body' => $validated['body'],
+                    'is_annonce' => $validated['is_annonce'],
+                ]);
+            } else {
 
-        Activite::create([
-            'title' => $validated['title'],
-            'body' => $validated['body'],
-        ]);
+                $annonce->body = $validated['body'];
+                $annonce->save();
+            }
+        } else {
+
+            Activite::create([
+                'title' => $validated['title'],
+                'body' => $validated['body'],
+                'is_annonce' => $validated['is_annonce'],
+            ]);
+        }
         return redirect()->route('admin.activites');
     }
 
@@ -115,12 +135,14 @@ class ActiviteController extends Controller
         $validated = $request->validate([
             'title' => 'required',
             'body' => 'required',
+            'is_annonce' => 'required'
         ]);
         // dd($validated);
         $activite = Activite::find($id);
 
         $activite->title = $request->title;
         $activite->body = $request->body;
+        $activite->body = $request->is_annonce;
 
         $activite->save();
         return redirect()->route('admin.activites');

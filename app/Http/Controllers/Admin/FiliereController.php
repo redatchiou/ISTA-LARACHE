@@ -3,25 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
-use App\Models\Emploi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use \App\Models\Filiere;
 
-class EmploiController extends Controller
+class FiliereController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(string $group = "")
+    public function index()
     {
-        if (empty($group)) {
-            $emploi = '';
-        }
-        $groups = \App\Models\Emploi::distinct()->pluck('group');
-        $emploi = \App\Models\Emploi::where('group', $group)->get();
-        return Inertia::render('Admin/Emplois', ['emploi' => $emploi, 'groups' => $groups, 'admin' => auth('admin')->user()]);
+        return Inertia::render('Admin/Filieres', ['filieres' => Filiere::all()]);
     }
 
     /**
@@ -42,7 +37,15 @@ class EmploiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $valideted = $request->validate([
+            'name' => 'required',
+            'code' => 'required|unique:filieres',
+            'nf' => 'required',
+            'description' => 'required'
+        ]);
+        Filiere::create($valideted);
+        return redirect()->route('admin.filieres');
     }
 
     /**
@@ -76,17 +79,7 @@ class EmploiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'subject' => 'required',
-            'trainer' => 'required',
-            'salle' => 'required',
-        ]);
-
-        $emploi = Emploi::find($id);
-        $emploi->subject = $validated['subject'];
-        $emploi->trainer = $validated['trainer'];
-        $emploi->salle = $validated['salle'];
-        $emploi->save();
+        //
     }
 
     /**
@@ -97,10 +90,8 @@ class EmploiController extends Controller
      */
     public function destroy($id)
     {
-        $emploi = Emploi::find($id);
-        $emploi->subject = "";
-        $emploi->trainer = "";
-        $emploi->salle = "";
-        $emploi->save();
+        $filiere = Filiere::find($id);
+        $filiere->delete();
+        // return redirect()->route('admin.activites');
     }
 }

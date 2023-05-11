@@ -3,25 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
+use App\Models\Group;
 use App\Models\Emploi;
+use App\Models\Filiere;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class EmploiController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(string $group = "")
+    public function index()
     {
-        if (empty($group)) {
-            $emploi = '';
-        }
-        $groups = \App\Models\Emploi::distinct()->pluck('group');
-        $emploi = \App\Models\Emploi::where('group', $group)->get();
-        return Inertia::render('Admin/Emplois', ['emploi' => $emploi, 'groups' => $groups, 'admin' => auth('admin')->user()]);
+
+        $groups = Group::join('filieres', 'groups.filiere_id', '=', 'filieres.id')
+            ->select('groups.code', 'filieres.name')
+            ->get();
+        $filieres = Filiere::all();
+        // return $groups;
+        return Inertia::render('Admin/Groups', ['filieres' => $filieres, 'groups' => $groups]);
     }
 
     /**
@@ -42,7 +45,29 @@ class EmploiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         //dd($request);
+        $valideted = $request->validate([
+            'code' => 'required|unique:groups',
+            'filiere_id' => 'required',
+        ]);
+        // dd($valideted);
+        $group = Group::create($valideted);
+        // dd($group->code);
+        $daysOfWeek = [
+            'Lundi',
+            'Mardi',
+            'Mercredi',
+            'Jeudi',
+            'Vendredi',
+            'Samedi',
+        ];
+
+        for ($j = 0; $j < 6; $j++) {
+            for ($k = 1; $k < 5; $k++) {
+                Emploi::create(['group' => $group->code, 'day_of_week' => $daysOfWeek[$j], 'subject' => '', 'trainer' => '', 'salle' => '', 'quarter' => 's' . $k]);
+            }
+        }
+        return redirect()->route('admin.groups');
     }
 
     /**
@@ -76,17 +101,7 @@ class EmploiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'subject' => 'required',
-            'trainer' => 'required',
-            'salle' => 'required',
-        ]);
-
-        $emploi = Emploi::find($id);
-        $emploi->subject = $validated['subject'];
-        $emploi->trainer = $validated['trainer'];
-        $emploi->salle = $validated['salle'];
-        $emploi->save();
+        //
     }
 
     /**
@@ -97,10 +112,7 @@ class EmploiController extends Controller
      */
     public function destroy($id)
     {
-        $emploi = Emploi::find($id);
-        $emploi->subject = "";
-        $emploi->trainer = "";
-        $emploi->salle = "";
-        $emploi->save();
+        $group = Group::find($id);
+        $group->delete();
     }
 }

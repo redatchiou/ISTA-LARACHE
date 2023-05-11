@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\ProfileUpdateRequest;
 
 class StagiaireController extends Controller
 {
@@ -121,6 +120,7 @@ class StagiaireController extends Controller
             'filiere' => ['required'],
             'group' => ['required'],
         ]);
+
         // dd($validatedData);
         // dd($id);
         $user = User::find($id);
