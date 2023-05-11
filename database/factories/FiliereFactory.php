@@ -23,6 +23,7 @@ class FiliereFactory extends Factory
             'name' => 'Filiere' . Str::random(4),
             'nf' => $nf->random(),
             'description' => fake()->text(100),
+            'code' => 'CODE',
         ];
     }
 }

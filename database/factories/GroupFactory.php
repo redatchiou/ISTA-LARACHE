@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Activite>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Group>
  */
-class ActiviteFactory extends Factory
+class GroupFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,7 @@ class ActiviteFactory extends Factory
     public function definition()
     {
         return [
-
-            'title' => "Titre d'Activites",
-            'is_annonce' => false,
-            'body' => fake()->text(400),
+            //
         ];
     }
 }
