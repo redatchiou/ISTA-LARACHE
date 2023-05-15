@@ -2,7 +2,7 @@ import { Transition } from "@headlessui/react";
 import { Link } from "@inertiajs/react";
 import { useState, useEffect, Fragment } from "react";
 import { IconContext } from "react-icons";
-export default function Card({ title, content = "", icon }) {
+export default function Card({ title, icon }) {
     // const [offset, setOffset] = useState(0);
     // const [IsHovering, setIsHovering] = useState(false);
     // useEffect(() => {
@@ -17,7 +17,7 @@ export default function Card({ title, content = "", icon }) {
         <div
             // onMouseEnter={() => setIsHovering(true)}
             // onMouseLeave={() => setIsHovering(false)}
-            className="block h-48 w-60 ml-5 overflow-hidden mx-2 m-5 p-6 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="block h-auto overflow-hidden mx-2 m-5 p-6 text-center bg-white hover:bg-slate-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
         >
             <IconContext.Provider
                 value={{
@@ -33,9 +33,6 @@ export default function Card({ title, content = "", icon }) {
                     {title}
                 </h5>
             </span>
-            <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
-                {content}
-            </p>
         </div>
     );
 }
