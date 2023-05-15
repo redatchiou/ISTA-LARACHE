@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('body');
-            $table->boolean('annonces');
+            $table->boolean('is_annonce');
             $table->timestamps();
         });
     }
