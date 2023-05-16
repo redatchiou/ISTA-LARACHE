@@ -9,12 +9,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Activite extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'body'];
+    protected $fillable = ['title', 'body', 'is_annonce'];
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
     ];
-
-    
     // protected function body(): Attribute
     // {
     //     return Attribute::make(

@@ -28,13 +28,6 @@ class User extends Authenticatable
         'password',
     ];
 
-
-    public function demandes()
-    {
-        return $this->hasMany(demande::class);
-    }
-    
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -44,6 +37,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
 
     /**
      * The attributes that should be cast.
@@ -51,6 +48,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime:Y-m-d H:i:s',
     ];
 }

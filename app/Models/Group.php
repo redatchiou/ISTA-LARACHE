@@ -6,12 +6,12 @@ use App\Models\Filiere;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Emploi extends Model
+class Group extends Model
 {
     use HasFactory;
     public function filiere()
     {
         return $this->belongsTo(Filiere::class);
     }
-    protected $fillable = ['group', 'day_of_week', 'quarter', 'subject', 'trainer', 'salle'];
+    protected $fillable = ['code', 'filiere_id'];
 }
