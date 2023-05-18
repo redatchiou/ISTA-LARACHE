@@ -21,7 +21,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        $groups = \App\Models\Group::join('filieres', 'groups.filiere_id', '=', 'filieres.id')
+            ->select('groups.code', 'filieres.name')
+            ->get();
+        $filieres = \App\Models\Filiere::all();
+        return Inertia::render('Auth/Register', ['filieres' => $filieres, 'groups' => $groups]);
     }
 
     /**
