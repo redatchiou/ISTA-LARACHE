@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AdminUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Admin;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -19,7 +20,6 @@ class AdminController extends Controller
     public function edit(Request $request): Response
     {
         return Inertia::render('Admin/Edit', [
-            'admin' => auth('admin')->user(),
             'mustVerifyEmail' => $request->user('admin') instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
@@ -28,11 +28,17 @@ class AdminController extends Controller
     /**
      * Update the admin's profile information.
      */
-    public function update(AdminUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-
-        $request->user('admin')->fill($request->validated());
-        
+        $validated = $request->validate([
+            'fname' => ['string', 'max:255'],
+            'lname' => ['string', 'max:255'],
+            'email' => ['email', 'max:255', Rule::unique(Admin::class)->ignore($request->user('admin')->id)],
+        ]);
+        $request->user('admin')->fill($validated);
+        // if ($request->user('admin')->isDirty('email')) {
+        //     $request->user('admin')->email_verified_at = null;
+        // }
 
         $request->user('admin')->save();
 
@@ -50,7 +56,8 @@ class AdminController extends Controller
 
         $user = $request->user('admin');
 
-        Auth::logout();
+        // Auth::logout();
+        Auth::guard('admin')->logout();
 
         $user->delete();
 
