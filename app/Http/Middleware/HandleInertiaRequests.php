@@ -35,6 +35,8 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'admin' => $request->user('admin'),
             ],
+            'annonce' =>  \App\Models\Activite::where('is_annonce', true)->first(),
+
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
