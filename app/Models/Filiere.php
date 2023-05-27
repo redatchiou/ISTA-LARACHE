@@ -18,5 +18,5 @@ class Filiere extends Model
     {
         return $this->hasMany(Group::class);
     }
-    protected $fillable = ['name', 'code', 'nf', 'description'];
+    protected $fillable = ['name', 'code', 'nf', 'parent', 'description'];
 }

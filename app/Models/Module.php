@@ -14,12 +14,12 @@ class Module extends Model
         return $this->belongsTo(Filiere::class);
     }
     protected $fillable = [
-
         'name',
         'description',
         'code',
         'filiere_id'
     ];
+
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
     ];
