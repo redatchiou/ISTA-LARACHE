@@ -18,11 +18,24 @@ class RequestController extends Controller
      */
     public function index()
     {
-        $requests =User::select('users.fname', 'users.lname', 'users.email', 'users.group', 'requests.message','requests.created_at','requests.updated_at','requests.id')
-        ->join('requests', 'users.id', '=', 'requests.user_id')
-        ->get();
-        return Inertia::render('Admin/Request', ['requests' => $requests]);
+        // dd(ModelsRequest::find(1)->user);
+        // dd(ModelsRequest::all());
+        $requests = User::select('users.fname', 'users.lname', 'users.email', 'users.group', 'requests.message', 'requests.created_at', 'requests.id')
+            ->join('requests', 'users.id', '=', 'requests.user_id')
+            ->get();
+        $requests = $requests->map(function ($record) {
+            return [
+                'id' => $record->id,
+                'group' => $record->group,
+                'email' => $record->email,
+                'fname' => $record->fname,
+                'lname' => $record->lname,
+                'message' => $record->message,
+                'created_at' => $record->created_at->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
+            ];
+        });
 
+        return Inertia::render('Admin/Request', ['requests' => $requests]);
     }
 
     /**
@@ -67,7 +80,7 @@ class RequestController extends Controller
     {
         $user = auth()->user()->id;
         $requests = ModelsRequest::orderBy('created_at', 'desc')->where('user_id', $user)->get();
-        return Inertia::render('Profile/Request', ['requests' => $requests, 'user' => auth()->user()]);
+        return Inertia::render('Profile/Request', ['requests' => $requests]);
     }
 
     /**
@@ -99,19 +112,8 @@ class RequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
-    {
-        // $request = ModelsRequest::find($id);
-        // $request->delete();
-        // return redirect()->route('requests');
-    }
-    public function deleteuser($id)
-    {
-        $request = ModelsRequest::find($id);
-        $request->delete();
-        return redirect()->route('requests');
-    }
-    public function deleteadmin($id)
     {
         $request = ModelsRequest::find($id);
         $request->delete();
