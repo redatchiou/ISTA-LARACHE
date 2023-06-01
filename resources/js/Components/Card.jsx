@@ -17,19 +17,19 @@ export default function Card({ title, icon }) {
         <div
             // onMouseEnter={() => setIsHovering(true)}
             // onMouseLeave={() => setIsHovering(false)}
-            className="block h-auto overflow-hidden mx-2 m-5 p-6 text-center bg-white hover:bg-slate-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="block h-auto overflow-hidden mx-2 m-5 p-6 text-center bg-white hover:bg-slate-200 border border-gray-200 rounded-lg shadow"
         >
             <IconContext.Provider
                 value={{
                     className:
-                        "w-10 h-10 mb-2 mx-auto text-gray-500 dark:text-gray-400",
+                        "w-10 h-10 mb-2 mx-auto text-gray-500",
                 }}
             >
                 <div>{icon}</div>
             </IconContext.Provider>
 
             <span href="#">
-                <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900">
                     {title}
                 </h5>
             </span>
