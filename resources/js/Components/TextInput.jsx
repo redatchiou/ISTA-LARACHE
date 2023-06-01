@@ -41,4 +41,3 @@ export default forwardRef(function TextInput(
         </div>
     );
 });
-
