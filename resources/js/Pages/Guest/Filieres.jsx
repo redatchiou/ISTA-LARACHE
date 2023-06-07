@@ -41,19 +41,19 @@ export default function Filieres({ filieres, modules, info, home }) {
                                 <h3 className="border-l p-1 border-l-slate-500 font-extrabold">
                                     {index === 0 ? (
                                         <span className="text-green-500">
-                                           Technicien Spécialisé
+                                            TS
                                         </span>
                                     ) : index === 1 ? (
                                         <span className="text-emerald-700">
-                                           Technicien
+                                            T
                                         </span>
                                     ) : index === 2 ? (
                                         <span className="text-amber-600">
-                                            Qualification
+                                            Qualif
                                         </span>
                                     ) : (
                                         <span className="text-sky-600">
-                                            Spécialisation
+                                            Spe
                                         </span>
                                     )}
                                 </h3>
@@ -100,11 +100,14 @@ export default function Filieres({ filieres, modules, info, home }) {
                                                 Les modules de Filieres
                                             </h3>
                                             <ul className="pl-5">
-                                                {modules.map((module) => (
-                                                    <li className="text-lg">
-                                                        {module.name} : {module.description}
-                                                    </li>
-                                                ))}
+                                                {modules.map(
+                                                    (module, index) => (
+                                                        <li key={index}>
+                                                            {module.name}:
+                                                            {module.description}
+                                                        </li>
+                                                    )
+                                                )}
                                             </ul>
                                         </div>
                                     ) : (

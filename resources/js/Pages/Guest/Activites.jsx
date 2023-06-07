@@ -22,14 +22,14 @@ export default function Activite({ activites }) {
                     </div>
                 }
             >
-                <div className="bg-slate-50 dark:bg-gray-900 p-5">
-                    <ol className="relative border-l border-gray-200 dark:border-gray-700">
+                <div className="bg-slate-50  p-5">
+                    <ol className="relative border-l border-gray-200 ">
                         {activites.map((activite) => (
                             <li className="ml-6" key={activite.id}>
-                                <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                                <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white ">
                                     <svg
                                         aria-hidden="true"
-                                        className="w-3 h-3 text-blue-800 dark:text-blue-300"
+                                        className="w-3 h-3 text-blue-800"
                                         fill="currentColor"
                                         viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -41,14 +41,14 @@ export default function Activite({ activites }) {
                                         ></path>
                                     </svg>
                                 </span>
-                                <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
+                                <h3 className="mb-1 text-lg font-semibold text-gray-900 ">
                                     {activite.title}
                                 </h3>
-                                <time className="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                                <time className="block mb-2 text-sm font-normal leading-none text-gray-400 ">
                                     publié le {activite.created_at}
                                 </time>
                                 <p
-                                    className="text-base font-normal text-gray-500 dark:text-gray-400"
+                                    className="text-base font-normal text-gray-500 "
                                     dangerouslySetInnerHTML={createMarkup(
                                         activite.body
                                     )}
