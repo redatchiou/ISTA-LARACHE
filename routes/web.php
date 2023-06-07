@@ -15,13 +15,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\EmploiController;
-use App\Http\Controllers\Admin\ModuleController;
 
+use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\FiliereController;
-use App\Http\Controllers\Admin\ActiviteController;
 use App\Http\Controllers\Admin\RequestController;
+use App\Http\Controllers\Admin\ActiviteController;
 use App\Http\Controllers\Admin\StagiaireController;
 use App\Http\Controllers\AdminAuth\PasswordController;
+use App\Http\Controllers\AdminAuth\RegisteredUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,7 +45,6 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', ['user' => auth()->user()]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -60,16 +60,10 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/requests', function () {
-        return Inertia::render('Profile/Request',['user' => auth()->user()]);
-    })->name('requests');
-    Route::post('/requests', [RequestController::class, 'store'])->name('request.store');
     Route::get('/requests', [RequestController::class, 'show'])->name('requests');
-    Route::delete('requests/{id}', [RequestController::class, 'deleteuser'])->name('profile.requests.destory');
-
+    Route::post('/requests', [RequestController::class, 'store'])->name('request.store');
+    Route::delete('requests/{id}', [RequestController::class, 'destroy'])->name('profile.requests.destory');
 });
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/emploi', function (Request $request) {
@@ -78,18 +72,32 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Profile/Emploi', ['emploi' => $emploi]);
     })->name('emploi');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/modules', function (Request $request) {
+        $filiere = $request->user()->filiere;
+        $id = \App\Models\Filiere::where('name', $filiere)->first()->id;
+        $filiere = \App\Models\Filiere::find($id);
+        $modules = $filiere->modules;
+        return Inertia::render('Profile/Modules', ['modules' => $modules]);
+    })->name('modules');
+});
 /*
 |--------------------------------------------------------------------------
 | Admin
 |--------------------------------------------------------------------------
 */
 
+Route::middleware('auth:admin')->group(function () {
+    Route::get('admin/register', [RegisteredUserController::class, 'create'])
+        ->name('admin.register');
+
+    Route::post('admin/register', [RegisteredUserController::class, 'store']);
+});
+
 Route::get('admin/dashboard', function () {
     return Inertia::render('Admin/Dashboard', ['admin' => auth('admin')->user()]);
 })->middleware('auth:admin')->name('admin.dashboard');
-// Route::middleware('auth:admin')->group(function () {
-//     Route::get('admin/dashboard', [User::class, 'getOnlineUsers'])->name('admin.dashboard');
-// });
 
 
 
@@ -123,7 +131,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('admin/activites/edit/{id}', [ActiviteController::class, 'edit'])->name('admin.activites.edit');
     Route::patch('admin/activites/edit/{id}', [ActiviteController::class, 'update'])->name('admin.activites.update');
     Route::delete('admin/activites/{id}', [ActiviteController::class, 'destroy'])->name('admin.activites.destroy');
-    Route::get('admin/activites/ad', [ActiviteController::class, 'create_ad'])->name('admin.activites.ad');
 });
 
 Route::middleware('auth:admin')->group(function () {
@@ -135,7 +142,7 @@ Route::middleware('auth:admin')->group(function () {
 Route::middleware('auth:admin')->group(function () {
     Route::get('admin/filieres/', [FiliereController::class, 'index'])->name('admin.filieres');
     Route::post('admin/filieres/', [FiliereController::class, 'store'])->name('admin.filieres.store');
-    Route::get('admin/filieres/{id}', [FiliereController::class, 'updtae'])->name('admin.filieres.update');
+    Route::patch('admin/filieres/{id}', [FiliereController::class, 'update'])->name('admin.filieres.update');
     Route::delete('admin/filieres/{id}', [FiliereController::class, 'destroy'])->name('admin.filieres.destroy');
 });
 Route::middleware('auth:admin')->group(function () {
@@ -154,16 +161,16 @@ Route::middleware('auth:admin')->group(function () {
 
 Route::middleware('auth:admin')->group(function () {
     Route::get('admin/requests/', [RequestController::class, 'index'])->name('admin.requests');
-    Route::delete('admin/requests/{id}', [RequestController::class, 'deleteadmin'])->name('admin.requests.destory');
+    Route::delete('admin/requests/{id}', [RequestController::class, 'destroy'])->name('admin.requests.destory');
 });
+
+
+
 Route::middleware('auth:admin')->group(function () {
     Route::get('admin/modules/', [ModuleController::class, 'index'])->name('admin.modules');
     Route::post('admin/modules/', [ModuleController::class, 'store'])->name('admin.modules.store');
     Route::delete('admin/modules/{id}', [ModuleController::class, 'destroy'])->name('admin.modules.destroy');
 });
-
-
-
 
 
 /*
@@ -205,14 +212,8 @@ Route::get('/filieres/{code?}', function (string $code = "") {
 
 
 Route::get('/faq', function () {
-    $key = (isset($_GET['query']) && $_GET['query']) ?  $_GET['query'] : '';
-    // dd($key);
-    $filtered = '';
-    if ($key) {
-        $filtered = \App\Models\Faq::where('question', 'LIKE', '% ' . $_GET['query'] . ' %')->get();
-    }
     $faqs = \App\Models\Faq::orderBy('created_at', 'desc')->get();
-    return Inertia::render('Guest/Faq', ['faqs' => $faqs, 'filtered' => $filtered, 'keyword' => $key]);
+    return Inertia::render('Guest/Faq', ['faqs' => $faqs]);
 })->name('faq');
 
 Route::get('/institut', function () {
@@ -223,16 +224,14 @@ Route::get('/emplois/{group?}', function (string $group = "") {
     if (empty($group)) {
         $emploi = '';
     }
-    $groups = \App\Models\Emploi::distinct()->pluck('group');
+    // $groups = \App\Models\Emploi::distinct()->pluck('group');
+    $groups = \App\Models\Group::distinct()->pluck('code');
     $emploi = \App\Models\Emploi::where('group', $group)->get();
     // return $emploi;
     return Inertia::render('Guest/Emplois', ['emploi' => $emploi, 'groups' => $groups]);
     // return  ['data' => $group];
 })->name('emplois');
 
-Route::get('/contact', function () {
-    return Inertia::render('Guest/Contact');
-})->name('contact');
 
 
 
