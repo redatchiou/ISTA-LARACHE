@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('emplois', function (Blueprint $table) {
             $table->id();
             $table->string('group');
+            $table->foreign('group')->references('code')->on('groups')->constrained()->onDelete('cascade');
             $table->string('day_of_week');
             $table->string('quarter');
             $table->string('subject');
