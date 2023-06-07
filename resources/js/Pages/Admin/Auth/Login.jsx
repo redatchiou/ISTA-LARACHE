@@ -110,12 +110,6 @@ export default function Login({ status, canResetPassword, auth }) {
                     </PrimaryButton>
                 </div>
             </form>
-            {/* <Link
-                href={route("register")}
-                className="text-base text-gray-700 dark:text-gray-500 underline"
-            >
-                Créer un compte
-            </Link> */}
         </GuestLayout>
     );
 }

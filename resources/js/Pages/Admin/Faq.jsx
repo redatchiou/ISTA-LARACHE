@@ -2,11 +2,12 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 import Modal from "@/Components/Modal";
-import { MdDelete, MdEditSquare, MdCheck } from "react-icons/md";
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
+import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
 export default function Faq({ faqs }) {
-    console.log(faqs);
-    const { data, setData, post, reset, processing } = useForm({
+    const { data, setData, post, reset, errors, processing } = useForm({
         question: "",
         response: "",
     });
@@ -40,37 +41,31 @@ export default function Faq({ faqs }) {
                 }
             >
                 <Modal show={canChange} onClose={closeModal} maxWidth="sm">
-                    <form
-                        // onSubmit={handleSubmit}
-                        className="p-5"
-                        autoComplete="off"
-                    >
+                    <form className="p-5" autoComplete="off">
                         <div className="mb-6">
-                            <label
-                                htmlFor="trainer"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                                Question
-                            </label>
-                            <input
-                                defaultValue={question}
-                                onChange={(e) => setQuestion(e.target.value)}
-                                type="text"
-                                id="trainer"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required
+                            <InputLabel forInput="question" value="Question" />
+
+                            <TextInput
+                                id="question"
+                                value={question}
+                                className="w-full"
+                                handleChange={(e) =>
+                                    setQuestion(e.target.value)
+                                }
+                                required={true}
                             />
                         </div>
                         <div className="mb-6">
-                            <label htmlFor="response" className="sr-only">
-                                Reponse
-                            </label>
+                            <InputLabel
+                                forInput="response"
+                                className="sr-only"
+                            />
 
                             <textarea
                                 name="response"
                                 rows="4"
-                                className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                                placeholder="Reponse"
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                placeholder="Saisissez une reponse"
                                 value={response}
                                 onChange={(e) => {
                                     setResponse(e.target.value);
@@ -79,6 +74,13 @@ export default function Faq({ faqs }) {
                             ></textarea>
                         </div>
                         <div className="flex justify-between">
+                            <PrimaryButton
+                                type="button"
+                                onClick={closeModal}
+                                className=""
+                            >
+                                Fermer
+                            </PrimaryButton>
                             <Link
                                 preserveScroll={true}
                                 href={route("admin.faq.update", id)}
@@ -89,101 +91,158 @@ export default function Faq({ faqs }) {
                                 }}
                                 as="button"
                                 onClick={closeModal}
-                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full_ sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full_ sm:w-auto px-5 py-2.5 text-center   "
                             >
-                                Mise a jour
-                                <MdCheck className="ml-1 inline fill-white" />
+                                Mettre à jour
                             </Link>
-                            <PrimaryButton onClick={closeModal} className="">
-                                Fermer
-                            </PrimaryButton>
                         </div>
                     </form>
                 </Modal>
                 <div className="m-7 overflow-x-auto shadow-md sm:rounded-lg">
                     <form onSubmit={hundleSubmit}>
-                        <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                                <label for="comment" className="sr-only">
-                                    Your comment
-                                </label>
-                                <input
+                        <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50  ">
+                            <div className="px-4 py-2 bg-white rounded-t-lg ">
+                                <InputLabel
+                                    forInput="question"
+                                    value="Question"
+                                    // className="sr-only"
+                                />
+                                <TextInput
                                     id="question"
+                                    type="text"
                                     name="question"
-                                    className="w-full h-8 px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:outline-0 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                                    placeholder="Question ?"
+                                    autoComplete="question"
+                                    className="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     value={data.question}
-                                    onChange={(e) => {
+                                    placeholder="Saisissez un question . . ."
+                                    handleChange={(e) => {
                                         setData("question", e.target.value);
                                     }}
                                     required
                                 />
+                                <InputError message={errors.question} />
                             </div>
-                            <hr />
-                            <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                                <label for="comment" className="sr-only">
-                                    Your comment
-                                </label>
+                            <div className="px-4 py-2 bg-white rounded-t-lg ">
+                                <InputLabel
+                                    forInput="response"
+                                    value="Response"
+                                />
                                 <textarea
                                     id="response"
                                     name="response"
                                     rows="4"
-                                    className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                                    placeholder="Reponse"
+                                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500      "
+                                    // className="w-full px-0 text-sm text-gray-900 bg-white border-0  focus:ring-0  "
+                                    placeholder="Saisissez une reponse"
                                     value={data.response}
                                     onChange={(e) => {
                                         setData("response", e.target.value);
                                     }}
                                     required
                                 ></textarea>
+                                <InputError message={errors.response} />
                             </div>
-                            <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                            <div className="flex items-center justify-between px-3 py-2 border-t ">
                                 <button
                                     disabled={processing}
                                     type="submit"
-                                    className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+                                    className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200  hover:bg-blue-800"
                                 >
                                     Ajouter FAQ
                                 </button>
                             </div>
                         </div>
                     </form>
-                    <fieldset className="flex flex-col border border-blue-300 p-2 space-y-2 m-2">
-                        <legend className="p-2">FAQs</legend>
+                    {!!faqs.data.length ? (
+                        <fieldset className="flex flex-col border border-slate-400 rounded-lg px-4 py-2 space-y-2 m-2">
+                            <legend className="p-2">FAQs</legend>
 
-                        {faqs.map((faq) => (
-                            <article className="border border-transparent border-b-blue-300 space-y-1  p-1">
-                                <Link
-                                    as="button"
-                                    href={route("admin.faq.destroy", faq.id)}
-                                    method="delete"
-                                    className="text-red-500 p-1"
-                                    preserveScroll={true}
+                            {faqs.data.map((faq, index) => (
+                                <article
+                                    key={index}
+                                    className="border border-transparent border-b-slate-400 space-y-1  pb-2"
                                 >
-                                    Supprimer
-                                    <MdDelete className="inline " />
-                                </Link>
-                                <button
-                                    onClick={() => {
-                                        setCanChange(true);
-                                        setQuestion(faq.question);
-                                        setResponse(faq.response);
-                                        setId(faq.id);
-                                    }}
-                                    className="text-green-400 p-1"
+                                    <div className="inline-flex space-x-1">
+                                        <Link
+                                            as="button"
+                                            href={route(
+                                                "admin.faq.destroy",
+                                                faq.id
+                                            )}
+                                            method="delete"
+                                            className="font-bold text-red-400  rounded-md hover:bg-red-400 hover:text-white p-1"
+                                            preserveScroll={true}
+                                            onClick={(e) => {
+                                                !confirm(
+                                                    "Êtes-vous sûr de vouloir supprimer définitivement ce FAQ"
+                                                ) && e.preventDefault();
+                                            }}
+                                        >
+                                            Supprimer
+                                        </Link>
+
+                                        <button
+                                            onClick={() => {
+                                                setCanChange(true);
+                                                setQuestion(faq.question);
+                                                setResponse(faq.response);
+                                                setId(faq.id);
+                                            }}
+                                            className="font-bold text-green-400  rounded-md hover:bg-green-400 hover:text-white p-1"
+                                        >
+                                            Modifier
+                                        </button>
+                                    </div>
+
+                                    <div>
+                                        <h1 className="text-lg">
+                                            {faq.question}
+                                        </h1>
+
+                                        <p className="text-sm">
+                                            {faq.response}
+                                        </p>
+                                    </div>
+                                </article>
+                            ))}
+                            {faqs.total > faqs.per_page && (
+                                <nav
+                                    aria-label="Page navigation example"
+                                    className="block py-4 mx-auto"
                                 >
-                                    Modifier
-                                    <MdEditSquare className="inline " />
-                                </button>
-
-                                <div>
-                                    <h1 className="text-lg">{faq.question}</h1>
-
-                                    <p className="text-sm">{faq.response}</p>
-                                </div>
-                            </article>
-                        ))}
-                    </fieldset>
+                                    <ul className="inline-flex -space-x-px">
+                                        {faqs.links.map((link, index) => (
+                                            <li key={index} className="">
+                                                <Link
+                                                    preserveScroll={true}
+                                                    href={link.url}
+                                                    className={
+                                                        link.active
+                                                            ? "px-3 py-2 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700   "
+                                                            : index === 0
+                                                            ? "px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700     "
+                                                            : index ===
+                                                              faqs.links
+                                                                  .length -
+                                                                  1
+                                                            ? "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700     "
+                                                            : "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700     "
+                                                    }
+                                                >
+                                                    {link.label}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </nav>
+                            )}
+                        </fieldset>
+                    ) : (
+                        <div className="text-center py-2 font-sans">
+                            Il semble qu'il n'y ait aucune donnée disponible à
+                            afficher.
+                        </div>
+                    )}
                 </div>
             </AdminLayout>
         </>

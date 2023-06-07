@@ -93,7 +93,7 @@ export default function Emplois({ emploi, groups }) {
                         <div className="mb-6">
                             <label
                                 htmlFor="module"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm font-medium text-gray-900"
                             >
                                 Module
                             </label>
@@ -104,14 +104,14 @@ export default function Emplois({ emploi, groups }) {
                                 }
                                 type="text"
                                 id="module"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required
                             />
                         </div>
                         <div className="mb-6">
                             <label
                                 htmlFor="trainer"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm font-medium text-gray-900 "
                             >
                                 Formateur
                             </label>
@@ -122,14 +122,14 @@ export default function Emplois({ emploi, groups }) {
                                 }
                                 type="text"
                                 id="trainer"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5      "
                                 required
                             />
                         </div>
                         <div className="mb-6">
                             <label
                                 htmlFor="salle"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm font-medium text-gray-900 "
                             >
                                 Salle
                             </label>
@@ -140,14 +140,14 @@ export default function Emplois({ emploi, groups }) {
                                 }
                                 type="text"
                                 id="salle"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5      "
                                 required
                             />
                         </div>
                         <div className="flex justify-between">
                             <button
                                 type="submit"
-                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full_ sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full_ sm:w-auto px-5 py-2.5 text-center   "
                             >
                                 Submit
                             </button>
@@ -165,14 +165,16 @@ export default function Emplois({ emploi, groups }) {
                             named_route="admin.emplois"
                         />
                     ) : (
-                        "Aucun Groupe"
+                        <div className="text-center py-2 font-semibold">
+                            Il n'y a aucune groupe à afficher . . .
+                        </div>
                     )}
                 </div>
 
                 <div className="m-4 overflow-x-scroll">
                     {!!emploi.length && (
-                        <table className="w-full mx-auto table-fixed_ text-center shadow-2xl border-collapse border  border-neutral-500 text-sm text-gray-500 dark:text-gray-400">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table className="w-full mx-auto table-fixed_ text-center shadow-2xl border-collapse border  border-neutral-500 text-sm text-gray-500 ">
+                            <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
                                 <tr>
                                     <th scope="col" className="w-1/8 px-0 py-3">
                                         /
@@ -258,11 +260,11 @@ export default function Emplois({ emploi, groups }) {
                                 ].map((day, i) => (
                                     <tr
                                         key={i}
-                                        className="bg-white_ border-b_ dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                        className="bg-white_ border-b_   hover:bg-gray-50 "
                                     >
                                         <th
                                             scope="row"
-                                            className="px-0 py-4 font-medium text-gray-900 border border-neutral-500 whitespace-nowrap dark:text-white"
+                                            className="px-0 py-4 font-medium text-gray-900 border border-neutral-500 whitespace-nowrap "
                                         >
                                             {day}
                                         </th>

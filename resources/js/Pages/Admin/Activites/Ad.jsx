@@ -1,31 +1,32 @@
-import PrimaryButton from "@/Components/PrimaryButton";
-import AdminLayout from "@/Layouts/AdminLayout";
-import { Link, Head, useForm } from "@inertiajs/react";
+import { Link, Head, useForm, usePage } from "@inertiajs/react";
+import DangerButton from "@/Components/DangerButton";
 export default function Annonce() {
+    const { annonce } = usePage().props;
+    console.log(annonce);
     const { data, setData, post, processing, errors, reset } = useForm({
         title: "annonce",
-        body: "",
+        body: !!annonce ? annonce.body : "",
         is_annonce: true,
     });
     const hundleSubmit = (e) => {
         e.preventDefault();
-        console.log(data);
         post(route("admin.activites.store"));
+        reset();
     };
     return (
-        <div className="m-7 overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="mx-5 bg-black my-3 overflow-x-auto shadow-md sm:rounded-lg max-sm:mx-0">
             <form onSubmit={hundleSubmit}>
-                <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                    <div className="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                <div className="w-full border border-gray-200  bg-gray-50  ">
+                    <div className="px-4 py-2 bg-white rounded-t-lg ">
                         <label for="comment" className="sr-only">
-                            Your Body
+                            Anonnce
                         </label>
                         <textarea
                             id="response"
                             name="response"
                             rows="4"
-                            className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                            placeholder="Saisser Annone"
+                            className="w-full px-2 text-sm text-gray-900 bg-white border-0 rounded-md  focus:ring-0  "
+                            placeholder="Saisissez . . ."
                             value={data.body}
                             onChange={(e) => {
                                 setData("body", e.target.value);
@@ -33,14 +34,29 @@ export default function Annonce() {
                             required
                         ></textarea>
                     </div>
-                    <div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+                    <hr />
+                    <div className="bg-white flex items-center justify-between px-3 py-2  ">
                         <button
                             disabled={processing}
                             type="submit"
-                            className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+                            className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200  hover:bg-blue-800"
                         >
-                            Ajouter Annonce
+                            {!!annonce ? "Mettre à jour" : "Ajouter Annonce"}
                         </button>
+                        {!!annonce && (
+                            <Link
+                                as="button"
+                                href={route(
+                                    "admin.activites.destroy",
+                                    annonce.id
+                                )}
+                                method="delete"
+                            >
+                                <DangerButton type="button">
+                                    Supprimer
+                                </DangerButton>
+                            </Link>
+                        )}
                     </div>
                 </div>
             </form>
