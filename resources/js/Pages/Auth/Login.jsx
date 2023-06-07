@@ -112,7 +112,7 @@ export default function Login({ status, canResetPassword }) {
                     <Link
                         as="button"
                         href={route("register")}
-                        className="w-full text-gray-600 underline rounded-md dark:text-gray-500"
+                        className="w-full text-gray-600 underline rounded-md "
                     >
                         Créer un compte
                     </Link>
