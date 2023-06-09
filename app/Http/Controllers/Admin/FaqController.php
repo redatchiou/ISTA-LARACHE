@@ -16,7 +16,7 @@ class FaqController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Faq', ['faqs' => Faq::orderBy('created_at', 'desc')->get()]);
+        return Inertia::render('Admin/Faq', ['faqs' => Faq::orderBy('created_at', 'desc')->paginate(4)]);
     }
 
     /**
@@ -76,8 +76,8 @@ class FaqController extends Controller
     public function update(Request $request, $id)
     {
         $valideted = $request->validate([
-            'question' => 'required',
-            'response' => 'required',
+            'question' => 'required|max:225',
+            'response' => 'required|max:500',
         ]);
         $faq = Faq::find($id);
         $faq->question = $valideted['question'];
