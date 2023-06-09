@@ -6,6 +6,8 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \App\Models\Filiere;
+use Illuminate\Validation\Rule;
+
 
 class FiliereController extends Controller
 {
@@ -37,14 +39,32 @@ class FiliereController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->parent) {
+            $filiere = Filiere::find($request->parent);
+            $request->validate([
+                'name' => 'required|max:225',
+                'code' => 'required|max:10|unique:filieres',
+                'description' => 'required|max:6000'
+            ]);
+            Filiere::create([
+                'nf' => $filiere->nf,
+                'parent' => $filiere->name,
+                'name' => $request->name,
+                'code' => $request->code,
+                'description' => $request->description
+            ]);
+            // dd($filiere);
+        } else {
+            $valideted = $request->validate([
+                'name' => 'required|max:225',
+                'code' => 'required|max:10|unique:filieres',
+                'nf' => 'required|max:225',
+                'parent' => "nullable",
+                'description' => 'required|max:6000'
+            ]);
+            Filiere::create($valideted);
+        }
 
-        $valideted = $request->validate([
-            'name' => 'required',
-            'code' => 'required|unique:filieres',
-            'nf' => 'required',
-            'description' => 'required'
-        ]);
-        Filiere::create($valideted);
         return redirect()->route('admin.filieres');
     }
 
@@ -79,7 +99,42 @@ class FiliereController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->parent) {
+            dd($request);
+            $filiere = Filiere::find($id);
+            $request->validate([
+                'name' => 'required|max:225',
+                'code' => 'required|max:10|' . Rule::unique(Filiere::class)->ignore($id),
+                'description' => 'required|max:6000'
+            ]);
+            $filiere->nf = $request->nf;
+            $filiere->parent = $request->parent;
+            $filiere->name = $request->name;
+            $filiere->code = $request->code;
+            $filiere->description = $request->description;
+            $filiere->save();
+        } else {
+            $filiere = Filiere::find($id);
+            $request->validate([
+                'name' => 'required|max:225',
+                'code' => 'required|max:10|' . Rule::unique(Filiere::class)->ignore($id),
+                'nf' => 'required|max:225',
+                'parent' => "nullable",
+                'description' => 'required|max:6000'
+            ]);
+            $filiere->nf = $request->nf;
+            $filiere->parent = $request->parent;
+            $filiere->name = $request->name;
+            $filiere->code = $request->code;
+            $filiere->description = $request->description;
+            $filiere->save();
+        }
+
+        return redirect()->route('admin.filieres');
+        // dd($request);
+        // $filiere = Filiere::find($id);
+        // dd($filiere);
+        // dd($request);
     }
 
     /**
@@ -91,7 +146,14 @@ class FiliereController extends Controller
     public function destroy($id)
     {
         $filiere = Filiere::find($id);
+
         $filiere->delete();
-        // return redirect()->route('admin.activites');
+
+        $subFilieres = Filiere::where('parent', $filiere->name)->where('nf', $filiere->nf)->get();
+        // dd($subFilieres);
+        foreach ($subFilieres as $oneFiliere) {
+            $oneFiliere->delete();
+        }
+        return redirect()->route('admin.filieres');
     }
 }
