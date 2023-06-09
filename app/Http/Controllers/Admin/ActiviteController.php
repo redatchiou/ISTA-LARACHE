@@ -17,20 +17,20 @@ class ActiviteController extends Controller
      */
     public function index()
     {
-        $activites = \App\Models\Activite::orderBy('created_at', 'desc')->get();
+        $activites = \App\Models\Activite::where('is_annonce', false)->orderBy('created_at', 'desc')->paginate(3);
 
-        $activites = $activites->map(function ($record) {
-            return [
-                'id' => $record->id,
-                'title' => $record->title,
-                'body' => $record->body,
-                'is_annonce' => $record->is_annonce,
+        // $activites = $activites->map(function ($record) {
+        //     return [
+        //         'id' => $record->id,
+        //         'title' => $record->title,
+        //         'body' => $record->body,
+        //         'is_annonce' => $record->is_annonce,
 
-                'created_at' => $record->created_at->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
-                'updated_at' => $record->updated_at->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
-            ];
-        });
-        return Inertia::render('Admin/Activites/Index', ['admin' => auth('admin')->user(), 'activites' => $activites]);
+        //         'created_at' => $record->created_at->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
+        //         'updated_at' => $record->updated_at->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s'),
+        //     ];
+        // });
+        return Inertia::render('Admin/Activites/Index', ['activites' => $activites]);
     }
 
     /**
@@ -41,10 +41,6 @@ class ActiviteController extends Controller
     public function create()
     {
         return Inertia::render('Admin/Activites/Create');
-    }
-    public function create_ad()
-    {
-        return Inertia::render('Admin/Activites/Ad');
     }
 
     /**
