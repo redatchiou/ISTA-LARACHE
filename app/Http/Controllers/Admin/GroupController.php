@@ -45,7 +45,7 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-         //dd($request);
+        //dd($request);
         $valideted = $request->validate([
             'code' => 'required|unique:groups',
             'filiere_id' => 'required',
@@ -110,9 +110,8 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($code)
     {
-        $group = Group::find($id);
-        $group->delete();
+        Group::where('code', $code)->limit(1)->delete();
     }
 }
