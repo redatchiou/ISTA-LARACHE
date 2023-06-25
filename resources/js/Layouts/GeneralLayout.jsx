@@ -46,13 +46,6 @@ export default function GeneralLayout({ header, children }) {
                                     Activites
                                 </NavLink>
                                 <NavLink
-                                    href="/contact"
-                                    active={route().current("contact")}
-                                >
-                                    Contact
-                                </NavLink>
-
-                                <NavLink
                                     href="/emplois"
                                     active={route().current("emplois")}
                                 >
@@ -175,27 +168,64 @@ export default function GeneralLayout({ header, children }) {
                         " sm:hidden"
                     }
                 >
-                    <div className="pt-2 pb-3 space-y-1">
+                    {!!user ? (
                         <ResponsiveNavLink
+                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                             href={route("dashboard")}
-                            active={route().current("dashboard")}
                         >
-                            Dashboard
+                            Espace Stagiaire
                         </ResponsiveNavLink>
-                    </div>
+                    ) : (
+                        <div className="my-1 flex flex-col justify-center">
+                            <div className="pt-1 pb-3 space-y-1 px-auto">
+                                <ResponsiveNavLink href={route("register")}>
+                                    <span className="underline">
+                                        Inscription
+                                    </span>
+                                </ResponsiveNavLink>
+                            </div>
+                            <div className="pt-1 pb-3 space-y-1">
+                                <ResponsiveNavLink href={route("login")}>
+                                    <span className="underline">
+                                        Connextion
+                                    </span>
+                                </ResponsiveNavLink>
+                            </div>
+                        </div>
+                    )}
                     <hr />
-                    <div className="my-1 flex flex-col justify-center">
-                        <p className="mr-1">Espace Stagiaire</p>
-                        <div className="pt-1 pb-3 space-y-1 px-auto">
-                            <ResponsiveNavLink href={route("register")}>
-                                <span className="underline">Inscription</span>
-                            </ResponsiveNavLink>
-                        </div>
-                        <div className="pt-1 pb-3 space-y-1">
-                            <ResponsiveNavLink href={route("login")}>
-                                <span className="underline">Connextion</span>
-                            </ResponsiveNavLink>
-                        </div>
+                    <div className="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink href="/">Accueil</ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="/filieres"
+                            active={route().current("filieres")}
+                        >
+                            Filieres
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="/activites"
+                            active={route().current("activites")}
+                        >
+                            Activites
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="/emplois"
+                            active={route().current("emplois")}
+                        >
+                            Emplois
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("faq")}
+                            active={route().current("faq")}
+                        >
+                            Faqs
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="/institut"
+                            active={route().current("institut")}
+                        >
+                            Institut
+                        </ResponsiveNavLink>
                     </div>
                 </div>
             </nav>

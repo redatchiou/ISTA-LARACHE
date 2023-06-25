@@ -11,7 +11,7 @@ export default function AdminLayout({ header, children }) {
     return (
         <>
             <div className="min-h-screen bg-gray-100">
-                <nav className="bg-white border-b border-gray-100">
+                <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-16">
                             <div className="flex">
@@ -83,6 +83,16 @@ export default function AdminLayout({ header, children }) {
                                 </div>
                                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                     <NavLink
+                                        href={route("admin.modules")}
+                                        active={route().current(
+                                            "admin.modules"
+                                        )}
+                                    >
+                                        Modules
+                                    </NavLink>
+                                </div>
+                                <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <NavLink
                                         href={route("admin.groups")}
                                         active={route().current("admin.groups")}
                                     >
@@ -95,14 +105,6 @@ export default function AdminLayout({ header, children }) {
                                         active={route().current("admin.faq")}
                                     >
                                         FAQs
-                                    </NavLink>
-                                </div>
-                                <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                    <NavLink
-                                        href={route("admin.modules")}
-                                        active={route().current("admin.modules")}
-                                    >
-                                        module
                                     </NavLink>
                                 </div>
                             </div>
@@ -139,6 +141,11 @@ export default function AdminLayout({ header, children }) {
                                                 href={route("admin.edit")}
                                             >
                                                 Parametres
+                                            </Dropdown.Link>
+                                            <Dropdown.Link
+                                                href={route("admin.register")}
+                                            >
+                                                Ajouter Admin
                                             </Dropdown.Link>
                                             <div>
                                                 <div className="block w-full px-4 py-1 text-left text-lg leading-5 text-gray-700  focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
@@ -235,10 +242,58 @@ export default function AdminLayout({ header, children }) {
                     >
                         <div className="pt-2 pb-3 space-y-1">
                             <ResponsiveNavLink
-                                href={route("dashboard")}
-                                active={route().current("dashboard")}
+                                href={route("admin.dashboard")}
+                                active={route().current("admin.dashboard")}
                             >
-                                Dashboard
+                                Accueil
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("stagiaire.index")}
+                                active={route().current("stagiaire.index")}
+                            >
+                                Stagaires
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("admin.requests")}
+                                active={route().current("admin.requests")}
+                            >
+                                Demandes
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("admin.activites")}
+                                active={route().current("admin.activites")}
+                            >
+                                Activites
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("admin.emplois")}
+                                active={route().current("admin.emplois")}
+                            >
+                                Emplois
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("admin.filieres")}
+                                active={route().current("admin.filieres")}
+                            >
+                                Filieres
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("admin.modules")}
+                                active={route().current("admin.modules")}
+                            >
+                                Modules
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("admin.groups")}
+                                active={route().current("admin.groups")}
+                            >
+                                Groupes
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("admin.faq")}
+                                active={route().current("admin.faq")}
+                            >
+                                FAQs
                             </ResponsiveNavLink>
                         </div>
 
@@ -254,8 +309,14 @@ export default function AdminLayout({ header, children }) {
 
                             <div className="mt-3 space-y-1">
                                 <ResponsiveNavLink href={route("profile.edit")}>
-                                    Profile
+                                    Parametres
                                 </ResponsiveNavLink>
+                                <ResponsiveNavLink
+                                    href={route("admin.register")}
+                                >
+                                    Ajouter Admin
+                                </ResponsiveNavLink>
+
                                 <ResponsiveNavLink
                                     method="post"
                                     href={route("logout")}

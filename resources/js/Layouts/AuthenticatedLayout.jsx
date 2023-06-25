@@ -12,7 +12,7 @@ export default function Authenticated({ header, children }) {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
+            <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -27,7 +27,7 @@ export default function Authenticated({ header, children }) {
                                     href={route("dashboard")}
                                     active={route().current("dashboard")}
                                 >
-                                    Profile
+                                    Acceuil
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -40,26 +40,18 @@ export default function Authenticated({ header, children }) {
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
-                                    href="#"
-                                    // active={route().current("login")}
+                                    href={route("modules")}
+                                    active={route().current("modules")}
                                 >
                                     Modules
                                 </NavLink>
                             </div>
-                            {/* <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route("dashboard")}
-                                    // active={route().current("dashboard")}
-                                >
-                                    Clubs
-                                </NavLink>
-                            </div> */}
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink
                                     href={route("requests")}
                                     active={route().current("requests")}
                                 >
-                                    Demander
+                                    Attestation
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -67,7 +59,7 @@ export default function Authenticated({ header, children }) {
                                     href={route("emploi")}
                                     active={route().current("emploi")}
                                 >
-                                    Empoi
+                                    Emploi
                                 </NavLink>
                             </div>
                         </div>
@@ -108,12 +100,13 @@ export default function Authenticated({ header, children }) {
                                                 {user.email}
                                             </div>
                                         </div>
+                                        <hr />
                                         <Dropdown.Link
                                             href={route("profile.edit")}
                                             method="get"
                                             as="button"
                                         >
-                                            Parametres
+                                            Profile
                                         </Dropdown.Link>
                                         <hr />
                                         <Dropdown.Link
@@ -203,7 +196,37 @@ export default function Authenticated({ header, children }) {
                             href={route("dashboard")}
                             active={route().current("dashboard")}
                         >
-                            Dashboard
+                            Acceuil
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("profile.notes")}
+                            active={route().current("profile.notes")}
+                        >
+                            Notes
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href="#"
+                            // active={route().current("login")}
+                        >
+                            Modules
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("requests")}
+                            active={route().current("requests")}
+                        >
+                            Attestation
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("emploi")}
+                            active={route().current("emploi")}
+                        >
+                            Emploi
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("modules")}
+                            active={route().current("modules")}
+                        >
+                            Modules
                         </ResponsiveNavLink>
                     </div>
 
