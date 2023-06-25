@@ -36,8 +36,8 @@ export default function Emplois({ auth, emploi }) {
                         </span>
                     </h1>
                     {!!emploi.length && (
-                        <table className="w-full mx-auto table-fixed_ text-center shadow-2xl border-collapse border  border-neutral-500 text-sm text-gray-500 dark:text-gray-400">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table className="w-full mx-auto table-fixed_ text-center shadow-2xl border-collapse border  border-neutral-500 text-sm text-gray-500 ">
+                            <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
                                 <tr>
                                     <th scope="col" className="w-1/8 px-0 py-3">
                                         /
@@ -123,11 +123,11 @@ export default function Emplois({ auth, emploi }) {
                                 ].map((day, i) => (
                                     <tr
                                         key={i}
-                                        className="bg-white_ border-b_ dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                        className="bg-white_ border-b_   hover:bg-gray-50 "
                                     >
                                         <th
                                             scope="row"
-                                            className="px-1 py-4 font-medium text-gray-900 border border-neutral-500 whitespace-nowrap dark:text-white"
+                                            className="px-1 py-4 font-medium text-gray-900 border border-neutral-500 whitespace-nowrap "
                                         >
                                             {day}
                                         </th>

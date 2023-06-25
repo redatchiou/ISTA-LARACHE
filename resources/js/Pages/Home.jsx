@@ -15,7 +15,11 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [index, setIndex] = useState(0);
+    // useEffect(() => {
+    //         setCurrentImageIndex((currentImageIndex + 1) % images.length);
 
+    // }, [currentImageIndex, images.length]);
     const images = [
         "./img/ista_cover.jpg",
         "./img/ista_cover_2.jpg",
@@ -31,57 +35,84 @@ export default function Home() {
         <>
             <Head title="Accueil" />
             <GeneralLayout>
-                <div className="flex flex-row items-center mx-40 my-10">
-                    <div className="flex-1 text-4xl font-semibold text-teal-600">
-                        <Typewriter
-                            options={{
-                                strings: [
-                                    "Bienvenue ISTA Larache",
-                                    "NTIC Larache",
-                                ],
-                                autoStart: true,
-                                loop: true,
-                            }}
-                        />
-                    </div>
-                    <div className="flex-1">
-                        {images.map((image, index) => (
-                            <img
-                                key={index}
-                                src={image}
-                                alt={`Image ${index}`}
-                                className={`shadow-lg shadow-gray-400 w-[340px] h-[255px] rounded-md items-end transition-all ease-in-out duration-100 ${
-                                    index !== currentImageIndex && "hidden"
-                                }`}
-                            />
-                        ))}
+                <div class="min-h-screen_ flex items-center justify-center px-16 max-sm:px-0">
+                    <div class="relative w-full max-w-lg">
+                        <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                        <div class="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                        <div class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+                        <div class="m-8 max-sm:mx-2 relative space-y-4">
+                            <div className="my-5">
+                                <div className="text-center text-4xl font-semibold text-teal-600">
+                                    <Typewriter
+                                        options={{
+                                            strings: [
+                                                "Bienvenue ISTA Larache",
+                                                "NTIC Larache",
+                                            ],
+                                            autoStart: true,
+                                            loop: true,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="relative max-w-lg mx-auto">
+                                <div className="relative h-56 overflow-hidden rounded-lg">
+                                    {images.map((image, index) => (
+                                        <img
+                                            key={index}
+                                            src={image}
+                                            alt={`Image ${index}`}
+                                            className={`mr-9 ml-auto shadow-lg shadow-gray-400  rounded-md items-end transition-all ease-in-out duration-100 ${
+                                                index !== currentImageIndex &&
+                                                "hidden"
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                            <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
+                                <div className="flex-1 text-2xl font-extrabold">
+                                    <Link href={route("filieres")}>
+                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-slate-500">
+                                            Filières
+                                        </span>
+                                    </Link>
+                                </div>
+                                <div>
+                                    <BsFillSignpost2Fill className="w-7 h-7 fill-purple-300" />
+                                </div>
+                            </div>
+                            <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
+                                <div className="flex-1 text-2xl font-extrabold">
+                                    <Link href={route("emplois")}>
+                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-slate-500">
+                                            Emploi de temps
+                                        </span>
+                                    </Link>
+                                </div>
+                                <div>
+                                    <BsFillCalendarRangeFill className="w-7 h-7 fill-purple-300" />
+                                </div>
+                            </div>
+                            <div class="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
+                                <div className="flex-1 text-2xl font-extrabold">
+                                    <Link href={route("activites")}>
+                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-slate-500">
+                                            Activités
+                                        </span>
+                                    </Link>
+                                </div>
+                                <div>
+                                    <BsActivity className="w-7 h-7 fill-purple-300" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="flex flex-wrap justify-center items-baseline max-[700px]:flex-col">
-                    <Link href={route("faq")} className="flex-1">
-                        <Card title="FAQs" icon={<BsPatchQuestionFill />} />
-                    </Link>
-                    <Link href={route("filieres")} className="flex-1">
-                        <Card title="Filières" icon={<BsFillSignpost2Fill />} />
-                    </Link>
-                    <Link href={route("activites")} className="flex-1">
-                        <Card title={"Activités"} icon={<BsActivity />} />
-                    </Link>
-                    <Link href={route("emplois")} className="flex-1">
-                        <Card
-                            title={"Emploi de temps"}
-                            icon={<BsFillCalendarRangeFill />}
-                        />
-                    </Link>
-                </div>
-                <section className="hidden">
-                    <h1 className="font-bold">Espace Stagaire</h1>
-                </section>
-
                 {/* -------------- */}
                 <Link href={route("requests")}>
                     <svg
-                        class="w-14 h-14 fixed bottom-[20px] right-[40px] z-500"
+                        className="w-14 h-14 fixed bottom-[20px] right-[40px] z-500"
                         viewBox="0 0 64 64"
                         fill="none"
                     >
@@ -118,7 +149,7 @@ export default function Home() {
                     </svg>
                 </Link>
             </GeneralLayout>
-            <hr />
+            <hr className="mt-10" />
             <Footer />
         </>
     );

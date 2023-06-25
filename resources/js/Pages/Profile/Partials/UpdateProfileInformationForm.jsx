@@ -159,8 +159,10 @@ export default function UpdateProfileInformation({
                         <option value="" disabled>
                             Choisissez une filière
                         </option>
-                        {allowed_filieres.map((filiere) => (
-                            <option value={filiere.name}>{filiere.name}</option>
+                        {allowed_filieres.map((filiere, index) => (
+                            <option key={index} value={filiere.name}>
+                                {filiere.name}
+                            </option>
                         ))}
                     </Select>
 
@@ -180,8 +182,10 @@ export default function UpdateProfileInformation({
                             Choisissez un groupe
                         </option>
 
-                        {allowed_groups.map((filiere) => (
-                            <option value={filiere.code}>{filiere.code}</option>
+                        {allowed_groups.map((filiere, index) => (
+                            <option key={index} value={filiere.code}>
+                                {filiere.code}
+                            </option>
                         ))}
                     </Select>
 
