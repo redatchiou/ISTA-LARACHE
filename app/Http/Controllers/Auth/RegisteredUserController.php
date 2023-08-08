@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:' . User::class,
+            'email' => 'required|string|email|max:255|ends_with:ofppt-edu.ma|unique:' . User::class,
             'tel' => "required",
             'nf' => "required",
             'filiere' => "required",

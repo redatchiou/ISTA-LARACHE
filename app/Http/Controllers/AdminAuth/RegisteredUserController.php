@@ -21,7 +21,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Admin/Auth/Register');
+        $admins = Admin::all(['id', 'fname', 'lname', 'email']);
+        return Inertia::render('Admin/Auth/Register', ['admins' => $admins]);
     }
 
     /**
@@ -39,17 +40,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = Admin::create([
+        Admin::create([
             'fname' => $request->fname,
             'lname' => $request->lname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
-
-        Auth::guard('admin')->login($user);
-
-        return redirect('/admin' . RouteServiceProvider::HOME);
+        return redirect()->route('admin.register');
     }
 }
